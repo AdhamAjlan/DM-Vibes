@@ -170,7 +170,7 @@ function AmbientBackground() {
       <div
         className="absolute inset-0"
         style={{
-          backgroundImage: "url('/images/studio-bg.jpg')",
+          backgroundImage: "url('/images/studio-bg.webp')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -2464,14 +2464,14 @@ function OverlaySections({ onStartProject }: { onStartProject: () => void }) {
           <div className="w-10 h-[1px] bg-[#f43f5e] shadow-[0_0_8px_#f43f5e]" />
           <span className="text-[#f43f5e] text-[10px] font-bold tracking-[6px]">NOW RECORDING</span>
         </div>
-        <h1 className="text-[40px] md:text-[84px] font-black italic text-white text-cinematic leading-[0.92] tracking-tight">
+        <h1 className="text-[28px] sm:text-[36px] md:text-[84px] font-black italic text-white text-cinematic leading-[0.92] tracking-tight">
           <SplitText text="IT ALL" delay={0.2} />
           <br />
           <SplitText text="STARTS HERE." delay={0.45} />
         </h1>
         <div className="flex items-center gap-4 mt-7">
           <div className="w-16 h-[1px] bg-amber/60" />
-          <span className="text-white/50 text-[10px] tracking-[4px] font-bold">DM VIBES · EST. 2020 · CAIRO, EG</span>
+          <span className="text-white/50 text-[9px] sm:text-[10px] tracking-[4px] font-bold">DM VIBES · EST. 2020 · CAIRO, EG</span>
         </div>
       </Overlay>
 
@@ -2481,21 +2481,21 @@ function OverlaySections({ onStartProject }: { onStartProject: () => void }) {
           <span className="text-amber text-[10px] font-bold tracking-[6px]">02 · ABOUT US</span>
           <div className="w-8 h-[1px] bg-amber" />
         </div>
-        <h2 className="text-[26px] md:text-[54px] font-black text-white text-cinematic leading-[1] max-w-[820px] text-center tracking-tight">
+        <h2 className="text-[22px] sm:text-[30px] md:text-[54px] font-black text-white text-cinematic leading-[1] max-w-[820px] text-center tracking-tight">
           <SplitText text="WE DON'T JUST" delay={0.1} />
           <br />
           <SplitText text="CREATE CONTENT." delay={0.25} />
           <br />
           <span className="text-amber italic text-amber-glow"><SplitText text="WE MADE VIBES." delay={0.4} /></span>
         </h2>
-        <p className="text-white/55 text-[13px] mt-7 max-w-[440px] text-center leading-relaxed animate-[fadeUp_1s_0.7s_both]">
+        <p className="text-white/55 text-[11px] sm:text-[13px] mt-7 max-w-[440px] text-center leading-relaxed animate-[fadeUp_1s_0.7s_both]">
           A creative production and digital marketing studio focused on visual experiences, powerful content, and growth-driven strategies.
         </p>
       </Overlay>
 
       <Overlay show={show(0.24, 0.34)} align="left">
         <ServiceHeader num="03" label="SERVICE 01" />
-        <h2 className="text-4xl md:text-[68px] font-black text-white text-cinematic leading-[0.92] tracking-tight">
+        <h2 className="text-[30px] sm:text-[42px] md:text-[68px] font-black text-white text-cinematic leading-[0.92] tracking-tight">
           <SplitText text="MEDIA" delay={0.1} />
           <br />
           <span className="text-amber italic text-amber-glow"><SplitText text="PRODUCTION" delay={0.28} /></span>
@@ -2508,7 +2508,7 @@ function OverlaySections({ onStartProject }: { onStartProject: () => void }) {
 
       <Overlay show={show(0.34, 0.44)} align="left">
         <ServiceHeader num="04" label="SERVICE 02" />
-        <h2 className="text-4xl md:text-[68px] font-black text-white text-cinematic leading-[0.92] tracking-tight">
+        <h2 className="text-[30px] sm:text-[42px] md:text-[68px] font-black text-white text-cinematic leading-[0.92] tracking-tight">
           <SplitText text="DIGITAL" delay={0.1} />
           <br />
           <span className="text-amber italic text-amber-glow"><SplitText text="MARKETING" delay={0.28} /></span>
@@ -2525,24 +2525,24 @@ function OverlaySections({ onStartProject }: { onStartProject: () => void }) {
           <span className="text-amber text-[10px] font-bold tracking-[6px]">05 · SERVICE 03</span>
           <div className="w-8 h-[1px] bg-amber" />
         </div>
-        <h2 className="text-4xl md:text-[68px] font-black text-white text-cinematic leading-[0.92] tracking-tight text-right">
+        <h2 className="text-[30px] sm:text-[42px] md:text-[68px] font-black text-white text-cinematic leading-[0.92] tracking-tight text-right">
           <SplitText text="A HIGHER" delay={0.1} />
           <br />
           <span className="text-amber italic text-amber-glow"><SplitText text="VIEW." delay={0.28} /></span>
         </h2>
-        <p className="text-white/55 text-[13px] mt-6 max-w-[340px] text-right leading-relaxed ml-auto">
+        <p className="text-white/55 text-[11px] sm:text-[13px] mt-6 max-w-[340px] text-right leading-relaxed ml-auto">
           See your brand from a different perspective. Cinematic aerial storytelling with cinema-grade drones.
         </p>
       </Overlay>
 
       <Overlay show={show(0.54, 0.64)} align="left">
         <ServiceHeader num="06" label="SERVICE 04" />
-        <h2 className="text-4xl md:text-[68px] font-black text-white text-cinematic leading-[0.92] tracking-tight">
+        <h2 className="text-[30px] sm:text-[42px] md:text-[68px] font-black text-white text-cinematic leading-[0.92] tracking-tight">
           <SplitText text="VIDEO" delay={0.1} />
           <br />
           <span className="text-amber italic text-amber-glow"><SplitText text="EDITING" delay={0.28} /></span>
         </h2>
-        <p className="text-white/55 text-[13px] mt-6 max-w-[340px] leading-relaxed">
+        <p className="text-white/55 text-[11px] sm:text-[13px] mt-6 max-w-[340px] leading-relaxed">
           Every frame tells a story. Post-production crafted with precision and cinema-grade color.
         </p>
       </Overlay>
@@ -2577,7 +2577,7 @@ function OverlaySections({ onStartProject }: { onStartProject: () => void }) {
           <span className="text-amber text-[10px] font-bold tracking-[6px]">08 · OUR WORK</span>
           <div className="w-8 h-[1px] bg-amber" />
         </div>
-        <h2 className="text-[32px] md:text-[80px] font-black text-white text-cinematic leading-[0.92] tracking-tight">
+        <h2 className="text-[26px] sm:text-[36px] md:text-[80px] font-black text-white text-cinematic leading-[0.92] tracking-tight">
           <SplitText text="SELECTED" delay={0.1} />
           <br />
           <span className="text-amber italic text-amber-glow"><SplitText text="PROJECTS." delay={0.28} /></span>
@@ -2623,12 +2623,12 @@ function OverlaySections({ onStartProject }: { onStartProject: () => void }) {
           <span className="text-amber text-[10px] font-bold tracking-[6px]">10 · FOLLOW THE VIBES</span>
           <div className="w-8 h-[1px] bg-amber" />
         </div>
-        <h2 className="text-[28px] md:text-[56px] font-black text-white text-cinematic leading-[0.95] tracking-tight mb-2">
+        <h2 className="text-[24px] sm:text-[30px] md:text-[56px] font-black text-white text-cinematic leading-[0.95] tracking-tight mb-2">
           <SplitText text="JOIN THE" delay={0.1} />
           <br />
           <span className="text-amber italic text-amber-glow"><SplitText text="MOVEMENT." delay={0.28} /></span>
         </h2>
-        <p className="text-white/50 text-[12px] tracking-[2px] max-w-[420px] text-center leading-relaxed mt-3 mb-7 animate-[fadeUp_1s_0.5s_both]">
+        <p className="text-white/50 text-[10px] sm:text-[12px] tracking-[2px] max-w-[420px] text-center leading-relaxed mt-3 mb-7 animate-[fadeUp_1s_0.5s_both]">
           Follow us on social media for behind-the-scenes, drops, and cinematic work.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 w-full max-w-[820px]">
@@ -2644,7 +2644,7 @@ function OverlaySections({ onStartProject }: { onStartProject: () => void }) {
           <span className="text-amber text-[10px] font-bold tracking-[6px]">11 · GOT A VISION?</span>
           <div className="w-8 h-[1px] bg-amber" />
         </div>
-        <h2 className="text-[28px] md:text-[64px] font-black text-white text-cinematic leading-[0.95] tracking-tight">
+        <h2 className="text-[24px] sm:text-[32px] md:text-[64px] font-black text-white text-cinematic leading-[0.95] tracking-tight">
           <SplitText text="LET'S MAKE" delay={0.1} />
           <br />
           <span className="text-amber italic text-amber-glow"><SplitText text="IT REAL." delay={0.28} /></span>
@@ -2722,10 +2722,10 @@ function StatBig({ value, suffix, label, delay = 0 }: { value: number; suffix: s
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
       <div className="flex items-baseline justify-center tabular-nums">
-        <span className="text-[52px] md:text-[88px] font-black text-white leading-none tracking-tighter tabular-nums" style={{ textShadow: "0 0 44px rgba(79,123,255,0.4)", minWidth: "1ch" }}>
+        <span className="text-[36px] sm:text-[52px] md:text-[88px] font-black text-white leading-none tracking-tighter tabular-nums" style={{ textShadow: "0 0 44px rgba(79,123,255,0.4)", minWidth: "1ch" }}>
           <AnimatedCounter target={value} />
         </span>
-        {suffix && <span className="text-[28px] md:text-[52px] font-black text-amber leading-none ml-1">{suffix}</span>}
+        {suffix && <span className="text-[18px] sm:text-[28px] md:text-[52px] font-black text-amber leading-none ml-1">{suffix}</span>}
       </div>
       <span className="text-white/40 text-[10px] tracking-[5px] font-bold mt-4">{label}</span>
     </motion.div>
@@ -2741,7 +2741,7 @@ function StatBigStatic({ value, label, delay = 0 }: { value: string; label: stri
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
       <div className="flex items-baseline justify-center">
-        <span className="text-[52px] md:text-[88px] font-black text-white leading-none tracking-tighter" style={{ textShadow: "0 0 44px rgba(139,92,246,0.45)", animation: "glowPulse 3s ease-in-out infinite" }}>
+        <span className="text-[36px] sm:text-[52px] md:text-[88px] font-black text-white leading-none tracking-tighter" style={{ textShadow: "0 0 44px rgba(139,92,246,0.45)", animation: "glowPulse 3s ease-in-out infinite" }}>
           {value}
         </span>
       </div>
@@ -2804,6 +2804,16 @@ function SocialCard({ platform, handle, followers, tag, url, delay = 0 }: {
 // OVERLAY WRAPPER
 // ═══════════════════════════════════════════════════════════
 function Overlay({ show, align, children }: { show: number; align: "left" | "right" | "center" | "bottom-left"; children: ReactNode }) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 768px)");
+    const update = () => setIsMobile(media.matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
+
   const textAlignClass =
     align === "center" ? "items-center text-center"
     : align === "right" ? "items-end text-right"
@@ -2813,13 +2823,27 @@ function Overlay({ show, align, children }: { show: number; align: "left" | "rig
   const ty = show ? 0 : 24;
   const scale = show ? 1 : 0.98;
 
-  const finalTransform = isHero
+  const finalTransform = isMobile
+    ? isHero
+      ? `translateY(${ty * 0.5}px) scale(${scale})`
+      : align === "center"
+      ? `translate(-50%, -50%) translateY(${ty * 0.5}px) scale(${scale})`
+      : `translateY(0) translateY(${ty * 0.5}px) scale(${scale})`
+    : isHero
     ? `translateY(${ty}px) scale(${scale})`
     : align === "center"
     ? `translate(-50%, -50%) translateY(${ty}px) scale(${scale})`
     : `translateY(-50%) translateY(${ty}px) scale(${scale})`;
 
-  const positionedClass = isHero
+  const positionedClass = isMobile
+    ? isHero
+      ? "bottom-[10vh] left-[5vw]"
+      : align === "center"
+      ? "top-1/2 left-1/2"
+      : align === "right"
+      ? "top-[52%] right-[5vw]"
+      : "top-[52%] left-[5vw]"
+    : isHero
     ? `bottom-[14vh] left-[6%]`
     : align === "center"
     ? `top-1/2 left-1/2`
@@ -2834,8 +2858,8 @@ function Overlay({ show, align, children }: { show: number; align: "left" | "rig
         opacity: show,
         transform: finalTransform,
         transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
-        maxHeight: "calc(100vh - 180px)",
-        maxWidth: "min(1180px, 92vw)",
+        maxHeight: isMobile ? "calc(100vh - 120px)" : "calc(100vh - 180px)",
+        maxWidth: isMobile ? "min(90vw, 360px)" : "min(1180px, 92vw)",
         pointerEvents: "none",
         willChange: "transform, opacity",
       }}
@@ -3082,15 +3106,15 @@ function LoadingScreen({ onComplete }: { onComplete: () => void }) {
             }}
           />
 
-          <div className="absolute top-8 left-8 flex items-center gap-2 z-10">
+          <div className="absolute top-6 left-5 sm:top-8 sm:left-8 flex items-center gap-2 z-10">
             <div className="w-2 h-2 rounded-full bg-[#f43f5e] shadow-[0_0_12px_#f43f5e] animate-[pulseDot_1.4s_ease-in-out_infinite]" />
-            <span className="text-[#f43f5e] text-[10px] font-bold tracking-[4px]">REC</span>
+            <span className="text-[#f43f5e] text-[9px] sm:text-[10px] font-bold tracking-[4px]">REC</span>
           </div>
 
-          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-5">
+          <div className="absolute bottom-8 sm:bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-4 sm:gap-5">
             <div className="flex items-center gap-3">
               <div className="w-2 h-2 bg-amber shadow-[0_0_18px_#4f7bff] animate-[pulseDot_1.4s_ease-in-out_infinite]" />
-              <h1 className="text-white text-xl md:text-3xl font-black tracking-[10px]">DM VIBES</h1>
+              <h1 className="text-white text-lg sm:text-xl md:text-3xl font-black tracking-[6px] sm:tracking-[10px]">DM VIBES</h1>
             </div>
 
             <div className="flex items-center gap-3">
@@ -3107,7 +3131,7 @@ function LoadingScreen({ onComplete }: { onComplete: () => void }) {
               <div className="w-8 h-[1px] bg-amber/50" />
             </div>
 
-            <div className="w-[280px] h-[3px] bg-white/10 relative overflow-hidden rounded-full">
+            <div className="w-[220px] sm:w-[280px] h-[3px] bg-white/10 relative overflow-hidden rounded-full">
               <div
                 className="absolute inset-y-0 left-0 transition-all duration-200"
                 style={{
