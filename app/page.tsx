@@ -291,7 +291,7 @@ function AnalyticsBars() {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="fixed bottom-40 left-6 z-[5] pointer-events-none hidden md:block"
+      className="fixed bottom-36 md:bottom-40 left-4 md:left-6 z-[5] pointer-events-none hidden md:block"
     >
       <div className="rounded-xl border border-white/10 bg-black/40 backdrop-blur-md p-3">
         <div className="flex items-center gap-2 mb-2">
@@ -334,7 +334,7 @@ function KPIWidgets() {
   if (!visible) return null;
 
   return (
-    <div className="fixed top-44 right-6 z-[5] pointer-events-none hidden md:flex flex-col gap-2">
+    <div className="fixed top-40 md:top-44 right-4 md:right-6 z-[5] pointer-events-none hidden md:flex flex-col gap-2">
       {kpis.map((kpi) => (
         <motion.div
           key={kpi.label}
@@ -376,7 +376,7 @@ function GrowthLine() {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="fixed bottom-40 right-6 z-[5] pointer-events-none hidden md:block"
+      className="fixed bottom-36 md:bottom-40 right-4 md:right-6 z-[5] pointer-events-none hidden md:block"
     >
       <div className="rounded-xl border border-white/10 bg-black/40 backdrop-blur-md p-3">
         <div className="flex items-center gap-2 mb-2">
@@ -578,7 +578,7 @@ function LiveFollowerCounter() {
     <motion.div
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="fixed top-44 left-6 z-[5] pointer-events-none hidden md:block"
+      className="fixed top-40 md:top-44 left-4 md:left-6 z-[5] pointer-events-none hidden md:block"
     >
       <div className="rounded-xl border border-white/10 bg-black/40 backdrop-blur-md px-3 py-2">
         <div className="flex items-center gap-2">
@@ -614,7 +614,10 @@ function CampaignTicker() {
   const content = [...items, ...items];
 
   return (
-    <div className="fixed bottom-16 left-0 right-0 z-[5] pointer-events-none hidden md:block overflow-hidden">
+    <div
+      className="fixed bottom-14 md:bottom-16 left-0 right-0 z-[5] pointer-events-none hidden md:block overflow-hidden"
+      style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
+    >
       <div className="border-y border-white/5 bg-black/30 backdrop-blur-sm py-1.5">
         <div className="flex whitespace-nowrap animate-marquee">
           {content.map((item, i) => (
@@ -658,7 +661,7 @@ function ServicesDonut() {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="fixed bottom-32 left-6 z-[5] pointer-events-none hidden md:block"
+      className="fixed bottom-24 left-6 z-[5] pointer-events-none hidden md:block"
     >
       <div className="rounded-xl border border-white/10 bg-black/40 backdrop-blur-md p-3">
         <div className="flex items-center gap-2 mb-2">
@@ -788,7 +791,7 @@ function ComparisonBars() {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="fixed bottom-32 right-6 z-[5] pointer-events-none hidden md:block"
+      className="fixed bottom-24 right-6 z-[5] pointer-events-none hidden md:block"
     >
       <div className="rounded-xl border border-white/10 bg-black/40 backdrop-blur-md p-3 min-w-[220px]">
         <div className="flex items-center gap-2 mb-3">
@@ -871,7 +874,7 @@ function RegionDots() {
     <motion.div
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="fixed top-44 right-6 z-[5] pointer-events-none hidden md:block"
+      className="fixed top-40 md:top-44 right-4 md:right-6 z-[5] pointer-events-none hidden md:block"
     >
       <div className="rounded-xl border border-white/10 bg-black/40 backdrop-blur-md p-3">
         <div className="flex items-center gap-2 mb-2">
@@ -942,7 +945,7 @@ function RetentionCurve() {
     <motion.div
       initial={{ opacity: 0, x: -40 }}
       animate={{ opacity: 1, x: 0 }}
-      className="fixed top-44 left-6 z-[5] pointer-events-none hidden md:block"
+      className="fixed top-40 md:top-44 left-4 md:left-6 z-[5] pointer-events-none hidden md:block"
     >
       <div className="rounded-xl border border-white/10 bg-black/40 backdrop-blur-md p-3">
         <div className="flex items-center gap-2 mb-2">
@@ -1069,12 +1072,12 @@ function AnimatedClientCard({
       viewport={{ once: false, amount: 0.2 }}
       transition={{ duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] }}
       whileHover={{ y: -6, scale: 1.06 }}
-      className="group relative flex h-[96px] items-center justify-center rounded-2xl border border-white/[0.07] bg-[#0a0e15]/70 px-3 py-3 backdrop-blur-sm transition-colors duration-500 hover:border-white/20"
+      className="group relative flex h-[56px] sm:h-[72px] md:h-[96px] items-center justify-center rounded-lg md:rounded-2xl border border-white/[0.07] bg-[#0a0e15]/70 px-1.5 py-1.5 md:px-3 md:py-3 backdrop-blur-sm transition-colors duration-500 hover:border-white/20"
       data-hover
     >
       <span
         aria-hidden
-        className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+        className="pointer-events-none absolute inset-0 rounded-lg md:rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
         style={{ boxShadow: `0 0 28px ${client.accent}55, inset 0 0 0 1px ${client.accent}44` }}
       />
 
@@ -1092,7 +1095,7 @@ function AnimatedClientCard({
           src={client.logo}
           alt={`${client.name} logo`}
           loading="lazy"
-          className="max-h-[54px] w-full object-contain object-center opacity-80 transition-all duration-500 group-hover:opacity-100 group-hover:scale-110"
+          className="max-h-[32px] sm:max-h-[40px] md:max-h-[54px] w-full object-contain object-center opacity-80 transition-all duration-500 group-hover:opacity-100 group-hover:scale-110"
           style={{
             filter: "grayscale(1) invert(1) contrast(1.08) brightness(1.1)",
             mixBlendMode: "screen",
@@ -1100,11 +1103,11 @@ function AnimatedClientCard({
         />
       </motion.div>
 
-      <div className="pointer-events-none absolute inset-x-0 bottom-1 z-20 flex flex-col items-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-        <span className="text-[8px] font-black tracking-[2px]" style={{ color: client.accent }}>
+      <div className="pointer-events-none absolute inset-x-0 bottom-0.5 md:bottom-1 z-20 flex flex-col items-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        <span className="text-[6px] md:text-[8px] font-black tracking-[1px] md:tracking-[2px]" style={{ color: client.accent }}>
           {client.name}
         </span>
-        <span className="text-[6px] font-bold tracking-[2px] uppercase text-white/40">
+        <span className="text-[5px] md:text-[6px] font-bold tracking-[1px] md:tracking-[2px] uppercase text-white/40">
           {client.category}
         </span>
       </div>
@@ -2013,7 +2016,7 @@ function SceneTransitionWipe() {
           animate={{ opacity: 0, x: "100%" }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed inset-0 z-[14] pointer-events-none"
+          className="fixed inset-0 z-[14] pointer-events-none overflow-hidden"
           style={{
             background:
               "linear-gradient(90deg, transparent 0%, rgba(79,123,255,0.4) 45%, rgba(139,92,246,0.5) 55%, transparent 100%)",
@@ -2079,7 +2082,7 @@ function SoundToggle() {
       onClick={() => setOn(!on)}
       data-hover
       aria-label={on ? "Mute ambient sound" : "Play ambient sound"}
-      className="fixed top-24 right-4 md:right-10 z-[255] flex items-center gap-2 px-3 py-2 rounded-full border border-white/10 bg-black/40 backdrop-blur-md hover:border-amber/50 transition-colors"
+      className="fixed top-20 md:top-24 right-3 md:right-10 z-[255] flex items-center gap-2 px-2.5 md:px-3 py-1.5 md:py-2 rounded-full border border-white/10 bg-black/40 backdrop-blur-md hover:border-amber/50 transition-colors"
     >
       <div className="flex items-end gap-[2px] h-3">
         {[1, 2, 3, 4].map((i) => (
@@ -2092,7 +2095,7 @@ function SoundToggle() {
           />
         ))}
       </div>
-      <span className="text-[9px] font-bold tracking-[2px] text-white/60">
+      <span className="text-[8px] md:text-[9px] font-bold tracking-[2px] text-white/60">
         {on ? "SOUND ON" : "SOUND OFF"}
       </span>
     </button>
@@ -2349,7 +2352,10 @@ function BottomBar() {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-30 hidden md:block pointer-events-none">
-      <div className="border-t border-white/5 bg-black/40 backdrop-blur-md">
+      <div
+        className="border-t border-white/5 bg-black/40 backdrop-blur-md"
+        style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
+      >
         <div className="px-8 py-3 flex items-center justify-between gap-6">
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2">
@@ -2550,15 +2556,15 @@ function OverlaySections({ onStartProject }: { onStartProject: () => void }) {
       {/* 🆕 DM CLIENTS — ALL 27 LOGOS, IN-PAGE, ANIMATED */}
       <Overlay show={show(0.64, 0.72)} align="center">
         <div className="w-full max-w-[1100px]">
-          <div className="mb-5 flex items-center justify-between gap-4 border-b border-white/10 pb-3">
+          <div className="mb-3 md:mb-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-4 border-b border-white/10 pb-3">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-[1px] bg-white/30" />
-              <span className="text-white/70 text-[10px] font-bold tracking-[6px]">07 · DM CLIENTS</span>
+              <div className="w-6 md:w-8 h-[1px] bg-white/30" />
+              <span className="text-white/70 text-[9px] md:text-[10px] font-bold tracking-[4px] md:tracking-[6px]">07 · DM CLIENTS</span>
             </div>
-            <span className="text-amber text-[10px] font-bold tracking-[4px]">TRUSTED BY 27+ BRANDS</span>
+            <span className="text-amber text-[9px] md:text-[10px] font-bold tracking-[3px] md:tracking-[4px]">TRUSTED BY 27+ BRANDS</span>
           </div>
 
-          <div className="grid grid-cols-3 gap-2.5 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 md:gap-3">
+          <div className="grid grid-cols-3 gap-1.5 sm:grid-cols-4 sm:gap-2 md:grid-cols-5 lg:grid-cols-6 md:gap-3">
             {DM_CLIENTS.map((client, i) => (
               <AnimatedClientCard
                 key={client.name}
@@ -2592,26 +2598,26 @@ function OverlaySections({ onStartProject }: { onStartProject: () => void }) {
       </Overlay>
 
       <Overlay show={show(0.80, 0.88)} align="center">
-        <div className="flex items-center gap-3 mb-10">
+        <div className="flex items-center gap-3 mb-6 md:mb-10">
           <div className="w-8 h-[1px] bg-amber" />
-          <span className="text-amber text-[10px] font-bold tracking-[6px]">09 · THE NUMBERS</span>
+          <span className="text-amber text-[9px] md:text-[10px] font-bold tracking-[4px] md:tracking-[6px]">09 · THE NUMBERS</span>
           <div className="w-8 h-[1px] bg-amber" />
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-14">
-          <div className="relative">
-            <StatRing color="#4f7bff" delay={0} size={170} />
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-14">
+          <div className="relative flex items-center justify-center w-[140px] h-[140px] sm:w-[160px] sm:h-[160px] md:w-[170px] md:h-[170px]">
+            <StatRing color="#4f7bff" delay={0} size={140} />
             <StatBig value={120} suffix="+" label="PROJECTS" delay={0} />
           </div>
-          <div className="relative">
-            <StatRing color="#a78bfa" delay={1} size={170} />
+          <div className="relative flex items-center justify-center w-[140px] h-[140px] sm:w-[160px] sm:h-[160px] md:w-[170px] md:h-[170px]">
+            <StatRing color="#a78bfa" delay={1} size={140} />
             <StatBig value={35} suffix="+" label="BRANDS" delay={0.15} />
           </div>
-          <div className="relative">
-            <StatRing color="#d946ef" delay={2} size={170} />
+          <div className="relative flex items-center justify-center w-[140px] h-[140px] sm:w-[160px] sm:h-[160px] md:w-[170px] md:h-[170px]">
+            <StatRing color="#d946ef" delay={2} size={140} />
             <StatBig value={4} suffix="" label="SERVICES" delay={0.3} />
           </div>
-          <div className="relative">
-            <StatRing color="#34d399" delay={3} size={170} />
+          <div className="relative flex items-center justify-center w-[140px] h-[140px] sm:w-[160px] sm:h-[160px] md:w-[170px] md:h-[170px]">
+            <StatRing color="#34d399" delay={3} size={140} />
             <StatBigStatic value="∞" label="IDEAS" delay={0.45} />
           </div>
         </div>
@@ -2716,18 +2722,27 @@ function ServiceBullet({ children, delay = 0 }: { children: ReactNode; delay?: n
 function StatBig({ value, suffix, label, delay = 0 }: { value: number; suffix: string; label: string; delay?: number }) {
   return (
     <motion.div
-      className="flex flex-col items-center min-w-[120px] md:min-w-[160px] cursor-default relative"
+      className="flex flex-col items-center cursor-default relative z-10"
       style={{ animation: `fadeUp 0.8s ${delay}s both` }}
       whileHover={{ y: -6, scale: 1.05 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
       <div className="flex items-baseline justify-center tabular-nums">
-        <span className="text-[36px] sm:text-[52px] md:text-[88px] font-black text-white leading-none tracking-tighter tabular-nums" style={{ textShadow: "0 0 44px rgba(79,123,255,0.4)", minWidth: "1ch" }}>
+        <span
+          className="text-[28px] sm:text-[40px] md:text-[72px] lg:text-[88px] font-black text-white leading-none tracking-tighter tabular-nums"
+          style={{ textShadow: "0 0 44px rgba(79,123,255,0.4)", minWidth: "1ch" }}
+        >
           <AnimatedCounter target={value} />
         </span>
-        {suffix && <span className="text-[18px] sm:text-[28px] md:text-[52px] font-black text-amber leading-none ml-1">{suffix}</span>}
+        {suffix && (
+          <span className="text-[14px] sm:text-[22px] md:text-[44px] lg:text-[52px] font-black text-amber leading-none ml-0.5 md:ml-1">
+            {suffix}
+          </span>
+        )}
       </div>
-      <span className="text-white/40 text-[10px] tracking-[5px] font-bold mt-4">{label}</span>
+      <span className="text-white/40 text-[8px] md:text-[10px] tracking-[3px] md:tracking-[5px] font-bold mt-2 md:mt-4">
+        {label}
+      </span>
     </motion.div>
   );
 }
@@ -2735,17 +2750,22 @@ function StatBig({ value, suffix, label, delay = 0 }: { value: number; suffix: s
 function StatBigStatic({ value, label, delay = 0 }: { value: string; label: string; delay?: number }) {
   return (
     <motion.div
-      className="flex flex-col items-center min-w-[90px] sm:min-w-[120px] md:min-w-[160px] cursor-default relative"
+      className="flex flex-col items-center cursor-default relative z-10"
       style={{ animation: `fadeUp 0.8s ${delay}s both` }}
       whileHover={{ y: -6, scale: 1.05 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
       <div className="flex items-baseline justify-center">
-        <span className="text-[36px] sm:text-[52px] md:text-[88px] font-black text-white leading-none tracking-tighter" style={{ textShadow: "0 0 44px rgba(139,92,246,0.45)", animation: "glowPulse 3s ease-in-out infinite" }}>
+        <span
+          className="text-[28px] sm:text-[40px] md:text-[72px] lg:text-[88px] font-black text-white leading-none tracking-tighter"
+          style={{ textShadow: "0 0 44px rgba(139,92,246,0.45)", animation: "glowPulse 3s ease-in-out infinite" }}
+        >
           {value}
         </span>
       </div>
-      <span className="text-white/40 text-[10px] tracking-[5px] font-bold mt-4">{label}</span>
+      <span className="text-white/40 text-[8px] md:text-[10px] tracking-[3px] md:tracking-[5px] font-bold mt-2 md:mt-4">
+        {label}
+      </span>
     </motion.div>
   );
 }
@@ -2815,41 +2835,48 @@ function Overlay({ show, align, children }: { show: number; align: "left" | "rig
   }, []);
 
   const textAlignClass =
-    align === "center" ? "items-center text-center"
-    : align === "right" ? "items-end text-right"
-    : "items-start text-left";
+    align === "center"
+      ? "items-center text-center"
+      : align === "right"
+      ? "items-end text-right"
+      : "items-start text-left";
 
   const isHero = align === "bottom-left";
   const ty = show ? 0 : 24;
   const scale = show ? 1 : 0.98;
 
-  const finalTransform = isMobile
-    ? isHero
-      ? `translateY(${ty * 0.5}px) scale(${scale})`
-      : align === "center"
-      ? `translate(-50%, -50%) translateY(${ty * 0.5}px) scale(${scale})`
-      : `translateY(0) translateY(${ty * 0.5}px) scale(${scale})`
-    : isHero
-    ? `translateY(${ty}px) scale(${scale})`
-    : align === "center"
-    ? `translate(-50%, -50%) translateY(${ty}px) scale(${scale})`
-    : `translateY(-50%) translateY(${ty}px) scale(${scale})`;
+  let positionedClass = "";
+  let finalTransform = "";
 
-  const positionedClass = isMobile
-    ? isHero
-      ? "bottom-[10vh] left-[5vw]"
-      : align === "center"
-      ? "top-1/2 left-1/2"
-      : align === "right"
-      ? "top-[52%] right-[5vw]"
-      : "top-[52%] left-[5vw]"
-    : isHero
-    ? `bottom-[14vh] left-[6%]`
-    : align === "center"
-    ? `top-1/2 left-1/2`
-    : align === "right"
-    ? `top-1/2 right-[6%]`
-    : `top-1/2 left-[6%]`;
+  if (isMobile) {
+    if (isHero) {
+      positionedClass = "bottom-[8vh] left-[5vw] right-[5vw]";
+      finalTransform = `translateY(${ty * 0.5}px) scale(${scale})`;
+    } else if (align === "center") {
+      positionedClass = "top-1/2 left-0 right-0 px-[5vw]";
+      finalTransform = `translateY(-50%) translateY(${ty * 0.5}px) scale(${scale})`;
+    } else if (align === "right") {
+      positionedClass = "top-1/2 right-[5vw] left-[10vw]";
+      finalTransform = `translateY(-50%) translateY(${ty * 0.5}px) scale(${scale})`;
+    } else {
+      positionedClass = "top-1/2 left-[5vw] right-[10vw]";
+      finalTransform = `translateY(-50%) translateY(${ty * 0.5}px) scale(${scale})`;
+    }
+  } else {
+    if (isHero) {
+      positionedClass = "bottom-[14vh] left-[6%]";
+      finalTransform = `translateY(${ty}px) scale(${scale})`;
+    } else if (align === "center") {
+      positionedClass = "top-1/2 left-1/2";
+      finalTransform = `translate(-50%, -50%) translateY(${ty}px) scale(${scale})`;
+    } else if (align === "right") {
+      positionedClass = "top-1/2 right-[6%]";
+      finalTransform = `translateY(-50%) translateY(${ty}px) scale(${scale})`;
+    } else {
+      positionedClass = "top-1/2 left-[6%]";
+      finalTransform = `translateY(-50%) translateY(${ty}px) scale(${scale})`;
+    }
+  }
 
   return (
     <div
@@ -2858,13 +2885,25 @@ function Overlay({ show, align, children }: { show: number; align: "left" | "rig
         opacity: show,
         transform: finalTransform,
         transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
-        maxHeight: isMobile ? "calc(100vh - 120px)" : "calc(100vh - 180px)",
-        maxWidth: isMobile ? "min(90vw, 360px)" : "min(1180px, 92vw)",
+        maxHeight: isMobile ? "calc(100dvh - 140px)" : "calc(100vh - 180px)",
+        maxWidth: isMobile ? "100%" : "min(1180px, 92vw)",
         pointerEvents: "none",
         willChange: "transform, opacity",
+        overflow: "hidden",
       }}
     >
-      {children}
+      <div
+        className="w-full flex flex-col"
+        style={{
+          maxHeight: isMobile ? "calc(100dvh - 160px)" : "calc(100vh - 200px)",
+          overflowY: isMobile ? "auto" : "visible",
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+          WebkitOverflowScrolling: "touch",
+        }}
+      >
+        {children}
+      </div>
     </div>
   );
 }
@@ -3090,7 +3129,7 @@ function LoadingScreen({ onComplete }: { onComplete: () => void }) {
               left: 0,
               width: "100%",
               height: "100%",
-              objectFit: "contain",
+              objectFit: "cover",
               objectPosition: "center",
               opacity: videoReady ? 1 : 0,
               transition: "opacity 0.7s ease",
@@ -3111,7 +3150,7 @@ function LoadingScreen({ onComplete }: { onComplete: () => void }) {
             <span className="text-[#f43f5e] text-[9px] sm:text-[10px] font-bold tracking-[4px]">REC</span>
           </div>
 
-          <div className="absolute bottom-8 sm:bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-4 sm:gap-5">
+          <div className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-3 sm:gap-5 px-4 w-full max-w-[90vw]">
             <div className="flex items-center gap-3">
               <div className="w-2 h-2 bg-amber shadow-[0_0_18px_#4f7bff] animate-[pulseDot_1.4s_ease-in-out_infinite]" />
               <h1 className="text-white text-lg sm:text-xl md:text-3xl font-black tracking-[6px] sm:tracking-[10px]">DM VIBES</h1>
@@ -3131,7 +3170,7 @@ function LoadingScreen({ onComplete }: { onComplete: () => void }) {
               <div className="w-8 h-[1px] bg-amber/50" />
             </div>
 
-            <div className="w-[220px] sm:w-[280px] h-[3px] bg-white/10 relative overflow-hidden rounded-full">
+            <div className="w-[180px] sm:w-[220px] md:w-[280px] h-[3px] bg-white/10 relative overflow-hidden rounded-full">
               <div
                 className="absolute inset-y-0 left-0 transition-all duration-200"
                 style={{
@@ -3149,10 +3188,10 @@ function LoadingScreen({ onComplete }: { onComplete: () => void }) {
             </div>
           </div>
 
-          <div className="absolute bottom-8 left-8 text-[9px] tracking-[3px] text-white/40 font-bold z-10">
+          <div className="absolute bottom-8 left-8 text-[9px] tracking-[3px] text-white/40 font-bold z-10 hidden sm:block">
             DMV · CREATIVE STUDIO
           </div>
-          <div className="absolute bottom-8 right-8 text-[9px] tracking-[3px] text-white/40 font-bold z-10">
+          <div className="absolute bottom-8 right-8 text-[9px] tracking-[3px] text-white/40 font-bold z-10 hidden sm:block">
             CAIRO · EGYPT
           </div>
 
@@ -3295,7 +3334,7 @@ function ProjectApplicationModal({ open, onClose }: { open: boolean; onClose: ()
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[400] flex items-center justify-center bg-[#050507]/80 backdrop-blur-md px-4"
+          className="fixed inset-0 z-[400] flex items-center justify-center bg-[#050507]/80 backdrop-blur-md px-3 sm:px-4 py-6"
           onClick={onClose}
         >
           <motion.div
@@ -3303,13 +3342,13 @@ function ProjectApplicationModal({ open, onClose }: { open: boolean; onClose: ()
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.98 }}
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full max-w-2xl rounded-[28px] border border-white/10 bg-[#0a0d17]/90 p-5 shadow-[0_0_40px_rgba(79,123,255,0.24)]"
+            className="relative w-full max-w-2xl max-h-[90dvh] overflow-y-auto rounded-2xl sm:rounded-[28px] border border-white/10 bg-[#0a0d17]/90 p-4 sm:p-5 shadow-[0_0_40px_rgba(79,123,255,0.24)]"
             onClick={(event) => event.stopPropagation()}
           >
             <button
               type="button"
               onClick={onClose}
-              className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-lg text-white/70 transition hover:border-white/20 hover:text-white"
+              className="absolute right-3 sm:right-4 top-3 sm:top-4 flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-lg text-white/70 transition hover:border-white/20 hover:text-white"
               aria-label="Close form"
             >
               ×
@@ -3334,12 +3373,12 @@ function ProjectApplicationModal({ open, onClose }: { open: boolean; onClose: ()
               </div>
             ) : (
               <>
-                <div className="mb-6">
+                <div className="mb-6 pr-10">
                   <div className="mb-3 flex items-center gap-3">
                     <div className="h-px w-10 bg-[#ffc857]" />
                     <span className="text-[10px] font-bold tracking-[5px] text-[#ffc857]">PROJECT APPLICATION</span>
                   </div>
-                  <h3 className="text-3xl font-black tracking-tight text-white md:text-4xl">Start your next project</h3>
+                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-white">Start your next project</h3>
                 </div>
 
                 <form onSubmit={handleSubmit} className="grid gap-4 md:grid-cols-2">
@@ -3349,7 +3388,7 @@ function ProjectApplicationModal({ open, onClose }: { open: boolean; onClose: ()
                       required
                       type="text"
                       placeholder="Your name"
-                      className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/35 focus:border-[#4f7bff] focus:outline-none"
+                      className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-base sm:text-sm text-white placeholder:text-white/35 focus:border-[#4f7bff] focus:outline-none"
                     />
                   </label>
 
@@ -3359,7 +3398,7 @@ function ProjectApplicationModal({ open, onClose }: { open: boolean; onClose: ()
                       required
                       type="email"
                       placeholder="you@example.com"
-                      className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/35 focus:border-[#4f7bff] focus:outline-none"
+                      className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-base sm:text-sm text-white placeholder:text-white/35 focus:border-[#4f7bff] focus:outline-none"
                     />
                   </label>
 
@@ -3368,7 +3407,7 @@ function ProjectApplicationModal({ open, onClose }: { open: boolean; onClose: ()
                     <input
                       type="text"
                       placeholder="Brand name"
-                      className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/35 focus:border-[#4f7bff] focus:outline-none"
+                      className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-base sm:text-sm text-white placeholder:text-white/35 focus:border-[#4f7bff] focus:outline-none"
                     />
                   </label>
 
@@ -3376,7 +3415,7 @@ function ProjectApplicationModal({ open, onClose }: { open: boolean; onClose: ()
                     Service needed
                     <select
                       defaultValue={PROJECT_SERVICES[0]}
-                      className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white focus:border-[#4f7bff] focus:outline-none"
+                      className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-base sm:text-sm text-white focus:border-[#4f7bff] focus:outline-none"
                     >
                       {PROJECT_SERVICES.map((service) => (
                         <option key={service} value={service} className="text-slate-900">
@@ -3391,7 +3430,7 @@ function ProjectApplicationModal({ open, onClose }: { open: boolean; onClose: ()
                     <input
                       type="text"
                       placeholder="$1,000 – $5,000"
-                      className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/35 focus:border-[#4f7bff] focus:outline-none"
+                      className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-base sm:text-sm text-white placeholder:text-white/35 focus:border-[#4f7bff] focus:outline-none"
                     />
                   </label>
 
@@ -3400,7 +3439,7 @@ function ProjectApplicationModal({ open, onClose }: { open: boolean; onClose: ()
                     <input
                       type="text"
                       placeholder="Example: 3 weeks"
-                      className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/35 focus:border-[#4f7bff] focus:outline-none"
+                      className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-base sm:text-sm text-white placeholder:text-white/35 focus:border-[#4f7bff] focus:outline-none"
                     />
                   </label>
 
@@ -3410,7 +3449,7 @@ function ProjectApplicationModal({ open, onClose }: { open: boolean; onClose: ()
                       required
                       rows={5}
                       placeholder="Tell us about your vision, goals, and key deliverables..."
-                      className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/35 focus:border-[#4f7bff] focus:outline-none"
+                      className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-base sm:text-sm text-white placeholder:text-white/35 focus:border-[#4f7bff] focus:outline-none"
                     />
                   </label>
 
