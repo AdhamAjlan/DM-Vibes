@@ -2735,7 +2735,7 @@ function StatBig({ value, suffix, label, delay = 0 }: { value: number; suffix: s
 function StatBigStatic({ value, label, delay = 0 }: { value: string; label: string; delay?: number }) {
   return (
     <motion.div
-      className="flex flex-col items-center min-w-[120px] md:min-w-[160px] cursor-default relative"
+      className="flex flex-col items-center min-w-[90px] sm:min-w-[120px] md:min-w-[160px] cursor-default relative"
       style={{ animation: `fadeUp 0.8s ${delay}s both` }}
       whileHover={{ y: -6, scale: 1.05 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -2773,7 +2773,7 @@ function SocialCard({ platform, handle, followers, tag, url, delay = 0 }: {
       target="_blank"
       rel="noreferrer"
       data-hover
-      className="pointer-events-auto group relative flex flex-col items-start gap-2.5 p-4 md:p-5 rounded-2xl border border-white/8 bg-white/[0.02] backdrop-blur-md overflow-hidden transition-all duration-500 hover:border-white/20 hover:-translate-y-1"
+      className="pointer-events-auto group relative flex flex-col items-start gap-2.5 p-3 sm:p-4 md:p-5 rounded-2xl border border-white/8 bg-white/[0.02] backdrop-blur-md overflow-hidden transition-all duration-500 hover:border-white/20 hover:-translate-y-1"
       style={{ animation: `fadeUp 0.8s ${delay}s both`, willChange: "transform" }}
     >
       <span aria-hidden className="absolute -top-16 -right-16 w-40 h-40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-3xl" style={{ background: glow }} />
@@ -2790,8 +2790,8 @@ function SocialCard({ platform, handle, followers, tag, url, delay = 0 }: {
 
       <div className="relative z-10 mt-1">
         <div className="flex items-baseline gap-2">
-          <span className="text-white text-xl md:text-2xl font-black tabular-nums leading-none">{followers}</span>
-          <span className="text-white/40 text-[10px] font-bold tracking-[3px]">FOLLOWERS</span>
+          <span className="text-white text-lg sm:text-xl md:text-2xl font-black tabular-nums leading-none">{followers}</span>
+          <span className="text-white/40 text-[9px] sm:text-[10px] font-bold tracking-[3px]">FOLLOWERS</span>
         </div>
         <div className="text-white/60 text-[11px] font-semibold tracking-wider mt-2.5">{handle}</div>
         <div className="text-white/30 text-[9px] tracking-[3px] font-bold mt-1 uppercase">{tag}</div>
