@@ -88,6 +88,32 @@ function SmoothScrollProvider({ children }: { children: ReactNode }) {
   const target = useRef(0);
 
   useEffect(() => {
+    const isMobileDevice = window.matchMedia("(max-width: 768px)").matches;
+
+    if (isMobileDevice) {
+      const onScroll = () => {
+        const max = document.body.scrollHeight - window.innerHeight;
+        target.current = max > 0 ? window.scrollY / max : 0;
+      };
+
+      onScroll();
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", onScroll, { passive: true });
+
+      let lerpId: number;
+      const lerp = () => {
+        progress.current += (target.current - progress.current) * 0.12;
+        lerpId = requestAnimationFrame(lerp);
+      };
+      lerpId = requestAnimationFrame(lerp);
+
+      return () => {
+        cancelAnimationFrame(lerpId);
+        window.removeEventListener("scroll", onScroll);
+        window.removeEventListener("resize", onScroll);
+      };
+    }
+
     const lenis = new Lenis({
       duration: 1.15,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -109,7 +135,7 @@ function SmoothScrollProvider({ children }: { children: ReactNode }) {
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    window.addEventListener("resize", onScroll, { passive: true });
 
     let lerpId: number;
     const lerp = () => {
@@ -1810,32 +1836,32 @@ function Experience({ ready, onStartProject }: { ready: boolean; onStartProject:
       <div style={{ height: "1400vh" }} aria-hidden />
       <div className="fixed inset-0 z-0">
         <Canvas
-          dpr={isMobile ? [1, 1.5] : [1, 2]}
+          dpr={isMobile ? [1, 1] : [1, 2]}
           shadows={!isMobile}
           gl={{
-            antialias: true,
+            antialias: !isMobile,
             alpha: true,
-            powerPreference: "high-performance",
+            powerPreference: isMobile ? "low-power" : "high-performance",
             toneMapping: THREE.ACESFilmicToneMapping,
-            toneMappingExposure: 1.15,
+            toneMappingExposure: isMobile ? 0.95 : 1.15,
           }}
-          camera={{ position: [0, 1.7, 8], fov: 42, near: 0.1, far: 200 }}
+          camera={{ position: [0, 1.7, 8], fov: isMobile ? 48 : 42, near: 0.1, far: 200 }}
           onCreated={({ gl, scene }) => {
             gl.setClearColor(0x000000, 0);
-            scene.fog = new THREE.FogExp2(PALETTE.baseFog, 0.008);
+            scene.fog = new THREE.FogExp2(PALETTE.baseFog, isMobile ? 0.012 : 0.008);
           }}
         >
           <Suspense fallback={null}>
             <StudioEnvironment />
             <StudioLights />
             <CameraModel />
-            <SoftboxModel />
-            <PhoneModel />
-            <MonitorModel />
-            <DroneModel />
-            <DustParticles count={isMobile ? 150 : 400} />
-            <LensFlare />
-            <LensTransition />
+            {!isMobile && <SoftboxModel />}
+            {!isMobile && <PhoneModel />}
+            {!isMobile && <MonitorModel />}
+            {!isMobile && <DroneModel />}
+            <DustParticles count={isMobile ? 40 : 400} />
+            {!isMobile && <LensFlare />}
+            {!isMobile && <LensTransition />}
             <CameraRig />
             <AdaptiveDpr pixelated />
             {!isMobile && <PostFX />}
@@ -3117,11 +3143,12 @@ function LoadingScreen({ onComplete }: { onComplete: () => void }) {
           <video
             ref={videoRef}
             src="https://raw.githubusercontent.com/AdhamAjlan/DM-Vibes/main/public/videos/intro.webm"
+            poster="/images/studio-bg.webp"
             playsInline
             muted
             autoPlay
             loop
-            preload="auto"
+            preload="metadata"
             className="pointer-events-none"
             style={{
               position: "absolute",
