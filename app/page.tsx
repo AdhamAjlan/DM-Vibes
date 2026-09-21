@@ -3053,7 +3053,7 @@ function LoadingScreen({ onComplete }: { onComplete: () => void }) {
 
           <video
             ref={videoRef}
-            src="/videos/intro.mp4"
+            src="https://raw.githubusercontent.com/AdhamAjlan/DM-Vibes/main/public/videos/intro.webm"
             playsInline
             muted
             autoPlay
