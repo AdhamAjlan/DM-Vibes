@@ -46,8 +46,8 @@ const PALETTE = {
 
 const SOCIAL_LINKS = {
   instagram: "https://www.instagram.com/dmvibes.eg?stkn=MWJ1dmlqMDd2eG9tbQ==",
-  facebook: "https://www.facebook.com/share/1YauMaWaua/?mibextid=wwXIfr",
-  youtube: "https://youtube.com/@dmvibes",
+  facebook: "https://www.facebook.com/share/18QWAWGEG9/?mibextid=wwXIfr",
+  linkedin: "https://www.linkedin.com/company/dmvibes/",
   x: "https://x.com/dmvibes_eg",
 };
 
@@ -59,8 +59,14 @@ const PROJECT_SERVICES = [
   "Search Engine Optimization",
 ] as const;
 
+const CONTACT_INFO = {
+  office: "13 AlBustan, DownTown Cairo",
+  email: "marketing@dmvibes.com",
+  phone: "+201000066932",
+} as const;
+
 // ═══════════════════════════════════════════════════════════
-// SCENE METADATA
+// SCENE METADATA  (Social scene removed — Contact is now 10)
 // ═══════════════════════════════════════════════════════════
 const SCENES = [
   { id: "hero",      chapter: "01", title: "We Made Vibes",     subtitle: "Creative Studio · Egypt", range: [0.00, 0.11], tint: "#4f7bff" },
@@ -69,11 +75,10 @@ const SCENES = [
   { id: "marketing", chapter: "04", title: "Digital Marketing", subtitle: "Service 02",              range: [0.34, 0.44], tint: "#6d5fff" },
   { id: "drone",     chapter: "05", title: "Drone",             subtitle: "Service 03",              range: [0.44, 0.54], tint: "#6d28d9" },
   { id: "editing",   chapter: "06", title: "Video Editing",     subtitle: "Service 04",              range: [0.54, 0.64], tint: "#8b5cf6" },
-  { id: "clients",   chapter: "07", title: "DM Clients",        subtitle: "Trusted Brands",          range: [0.64, 0.72], tint: "#4f7bff" },
-  { id: "work",      chapter: "08", title: "Selected Work",     subtitle: "Our Projects",            range: [0.72, 0.80], tint: "#8b5cf6" },
+  { id: "clients",   chapter: "07", title: "DM Clients",        subtitle: "Trusted Brands",          range: [0.64, 0.76], tint: "#4f7bff" },
+  { id: "work",      chapter: "08", title: "Selected Work",     subtitle: "Our Projects",            range: [0.76, 0.80], tint: "#8b5cf6" },
   { id: "numbers",   chapter: "09", title: "The Numbers",       subtitle: "By The Numbers",          range: [0.80, 0.88], tint: "#a78bfa" },
-  { id: "social",    chapter: "10", title: "Social Media",      subtitle: "Follow The Vibes",        range: [0.88, 0.96], tint: "#d946ef" },
-  { id: "contact",   chapter: "11", title: "Let's Talk",        subtitle: "Start a Project",         range: [0.96, 1.01], tint: "#4f7bff" },
+  { id: "contact",   chapter: "10", title: "Let's Talk",        subtitle: "Start a Project",         range: [0.88, 1.01], tint: "#4f7bff" },
 ] as const;
 
 const TOTAL_SCENES = SCENES.length;
@@ -88,32 +93,6 @@ function SmoothScrollProvider({ children }: { children: ReactNode }) {
   const target = useRef(0);
 
   useEffect(() => {
-    const isMobileDevice = window.matchMedia("(max-width: 768px)").matches;
-
-    if (isMobileDevice) {
-      const onScroll = () => {
-        const max = document.body.scrollHeight - window.innerHeight;
-        target.current = max > 0 ? window.scrollY / max : 0;
-      };
-
-      onScroll();
-      window.addEventListener("scroll", onScroll, { passive: true });
-      window.addEventListener("resize", onScroll, { passive: true });
-
-      let lerpId: number;
-      const lerp = () => {
-        progress.current += (target.current - progress.current) * 0.12;
-        lerpId = requestAnimationFrame(lerp);
-      };
-      lerpId = requestAnimationFrame(lerp);
-
-      return () => {
-        cancelAnimationFrame(lerpId);
-        window.removeEventListener("scroll", onScroll);
-        window.removeEventListener("resize", onScroll);
-      };
-    }
-
     const lenis = new Lenis({
       duration: 1.15,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -135,7 +114,7 @@ function SmoothScrollProvider({ children }: { children: ReactNode }) {
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
 
     let lerpId: number;
     const lerp = () => {
@@ -196,7 +175,7 @@ function AmbientBackground() {
       <div
         className="absolute inset-0"
         style={{
-          backgroundImage: "url('/images/studio-bg.webp')",
+          backgroundImage: "url('/images/studio-bg.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -317,7 +296,7 @@ function AnalyticsBars() {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="fixed bottom-36 md:bottom-40 left-4 md:left-6 z-[5] pointer-events-none hidden md:block"
+      className="fixed bottom-40 left-6 z-[5] pointer-events-none hidden md:block"
     >
       <div className="rounded-xl border border-white/10 bg-black/40 backdrop-blur-md p-3">
         <div className="flex items-center gap-2 mb-2">
@@ -360,7 +339,7 @@ function KPIWidgets() {
   if (!visible) return null;
 
   return (
-    <div className="fixed top-40 md:top-44 right-4 md:right-6 z-[5] pointer-events-none hidden md:flex flex-col gap-2">
+    <div className="fixed top-44 right-6 z-[5] pointer-events-none hidden md:flex flex-col gap-2">
       {kpis.map((kpi) => (
         <motion.div
           key={kpi.label}
@@ -402,7 +381,7 @@ function GrowthLine() {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="fixed bottom-36 md:bottom-40 right-4 md:right-6 z-[5] pointer-events-none hidden md:block"
+      className="fixed bottom-40 right-6 z-[5] pointer-events-none hidden md:block"
     >
       <div className="rounded-xl border border-white/10 bg-black/40 backdrop-blur-md p-3">
         <div className="flex items-center gap-2 mb-2">
@@ -587,7 +566,7 @@ function TrafficDots() {
 
 function LiveFollowerCounter() {
   const p = useScrollState();
-  const visible = p >= 0.78 && p <= 0.94;
+  const visible = p >= 0.76 && p <= 0.92;
   const [count, setCount] = useState(245800);
 
   useEffect(() => {
@@ -604,7 +583,7 @@ function LiveFollowerCounter() {
     <motion.div
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="fixed top-40 md:top-44 left-4 md:left-6 z-[5] pointer-events-none hidden md:block"
+      className="fixed top-44 left-6 z-[5] pointer-events-none hidden md:block"
     >
       <div className="rounded-xl border border-white/10 bg-black/40 backdrop-blur-md px-3 py-2">
         <div className="flex items-center gap-2">
@@ -640,10 +619,7 @@ function CampaignTicker() {
   const content = [...items, ...items];
 
   return (
-    <div
-      className="fixed bottom-14 md:bottom-16 left-0 right-0 z-[5] pointer-events-none hidden md:block overflow-hidden"
-      style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
-    >
+    <div className="fixed bottom-16 left-0 right-0 z-[5] pointer-events-none hidden md:block overflow-hidden">
       <div className="border-y border-white/5 bg-black/30 backdrop-blur-sm py-1.5">
         <div className="flex whitespace-nowrap animate-marquee">
           {content.map((item, i) => (
@@ -664,7 +640,7 @@ function CampaignTicker() {
 
 function ServicesDonut() {
   const p = useScrollState();
-  const visible = p >= 0.72 && p <= 0.80;
+  const visible = p >= 0.76 && p <= 0.80;
   const localT = Math.min(1, Math.max(0, (p - 0.73) / 0.05));
 
   const segments = [
@@ -687,7 +663,7 @@ function ServicesDonut() {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="fixed bottom-24 left-6 z-[5] pointer-events-none hidden md:block"
+      className="fixed bottom-32 left-6 z-[5] pointer-events-none hidden md:block"
     >
       <div className="rounded-xl border border-white/10 bg-black/40 backdrop-blur-md p-3">
         <div className="flex items-center gap-2 mb-2">
@@ -697,7 +673,7 @@ function ServicesDonut() {
         <div className="flex items-center gap-3">
           <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
             <g transform={`rotate(-90 ${size / 2} ${size / 2})`}>
-              {segments.map((seg, i) => {
+              {segments.map((seg) => {
                 const dashLength = (seg.value / 100) * circumference * localT;
                 const gapLength = circumference - dashLength;
                 const offset = -accumulated * circumference * localT;
@@ -758,14 +734,14 @@ function ServicesDonut() {
 
 function StatRing({ color, delay = 0, size = 180 }: { color: string; delay?: number; size?: number }) {
   const p = useScrollState();
-  const visible = p >= 0.72 && p <= 0.80;
+  const visible = p >= 0.76 && p <= 0.80;
   const localT = Math.min(1, Math.max(0, (p - 0.73) / 0.06));
 
   if (!visible) return null;
 
   const radius = (size - 8) / 2;
   const circumference = 2 * Math.PI * radius;
-  const progress = 0.72 + delay * 0.1;
+  const progress = 0.76 + delay * 0.1;
   const dash = circumference * progress * localT;
 
   return (
@@ -802,7 +778,7 @@ function StatRing({ color, delay = 0, size = 180 }: { color: string; delay?: num
 
 function ComparisonBars() {
   const p = useScrollState();
-  const visible = p >= 0.72 && p <= 0.80;
+  const visible = p >= 0.76 && p <= 0.80;
   const localT = Math.min(1, Math.max(0, (p - 0.73) / 0.06));
 
   const data = [
@@ -817,7 +793,7 @@ function ComparisonBars() {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="fixed bottom-24 right-6 z-[5] pointer-events-none hidden md:block"
+      className="fixed bottom-32 right-6 z-[5] pointer-events-none hidden md:block"
     >
       <div className="rounded-xl border border-white/10 bg-black/40 backdrop-blur-md p-3 min-w-[220px]">
         <div className="flex items-center gap-2 mb-3">
@@ -883,7 +859,7 @@ function ComparisonBars() {
 
 function RegionDots() {
   const p = useScrollState();
-  const visible = p >= 0.72 && p <= 0.80;
+  const visible = p >= 0.76 && p <= 0.80;
 
   const regions = [
     { name: "CAIRO", x: 42, y: 38, active: true, delay: 0 },
@@ -900,7 +876,7 @@ function RegionDots() {
     <motion.div
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="fixed top-40 md:top-44 right-4 md:right-6 z-[5] pointer-events-none hidden md:block"
+      className="fixed top-44 right-6 z-[5] pointer-events-none hidden md:block"
     >
       <div className="rounded-xl border border-white/10 bg-black/40 backdrop-blur-md p-3">
         <div className="flex items-center gap-2 mb-2">
@@ -964,14 +940,14 @@ function RegionDots() {
 
 function RetentionCurve() {
   const p = useScrollState();
-  const visible = p >= 0.72 && p <= 0.80;
+  const visible = p >= 0.76 && p <= 0.80;
   if (!visible) return null;
 
   return (
     <motion.div
       initial={{ opacity: 0, x: -40 }}
       animate={{ opacity: 1, x: 0 }}
-      className="fixed top-40 md:top-44 left-4 md:left-6 z-[5] pointer-events-none hidden md:block"
+      className="fixed top-44 left-6 z-[5] pointer-events-none hidden md:block"
     >
       <div className="rounded-xl border border-white/10 bg-black/40 backdrop-blur-md p-3">
         <div className="flex items-center gap-2 mb-2">
@@ -1033,7 +1009,7 @@ function RetentionCurve() {
 
 function NumberParticles() {
   const p = useScrollState();
-  const visible = p >= 0.72 && p <= 0.80;
+  const visible = p >= 0.76 && p <= 0.80;
   if (!visible) return null;
 
   const particles = [
@@ -1089,22 +1065,21 @@ function AnimatedClientCard({
   index: number;
   total: number;
 }) {
-  const delay = 0.35 + (index / total) * 1.0;
+  const delay = 0.04 + (index / total) * 0.45;
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 30, scale: 0.85 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: false, amount: 0.2 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] }}
       whileHover={{ y: -6, scale: 1.06 }}
-      className="group relative flex h-[56px] sm:h-[72px] md:h-[96px] items-center justify-center rounded-lg md:rounded-2xl border border-white/[0.07] bg-[#0a0e15]/70 px-1.5 py-1.5 md:px-3 md:py-3 backdrop-blur-sm transition-colors duration-500 hover:border-white/20"
+      className="client-logo-card group relative flex h-[90px] items-center justify-center rounded-2xl border border-[#a9c7ff] bg-[#dbe8ff] px-1.5 py-2 shadow-[0_12px_24px_rgba(4,5,12,0.42)] transition-all duration-500 hover:border-[#d9e6ff] hover:bg-[#e8f1ff] hover:shadow-[0_20px_42px_rgba(79,123,255,0.5)]"
       data-hover
     >
       <span
         aria-hidden
-        className="pointer-events-none absolute inset-0 rounded-lg md:rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-        style={{ boxShadow: `0 0 28px ${client.accent}55, inset 0 0 0 1px ${client.accent}44` }}
+        className="client-logo-depth pointer-events-none absolute inset-0 rounded-2xl opacity-60 transition-opacity duration-500 group-hover:opacity-100"
+        style={{ boxShadow: `0 0 30px ${client.accent}88, inset 0 0 0 2px ${client.accent}99` }}
       />
 
       <motion.div
@@ -1120,20 +1095,20 @@ function AnimatedClientCard({
         <img
           src={client.logo}
           alt={`${client.name} logo`}
-          loading="lazy"
-          className="max-h-[32px] sm:max-h-[40px] md:max-h-[54px] w-full object-contain object-center opacity-80 transition-all duration-500 group-hover:opacity-100 group-hover:scale-110"
+          loading="eager"
+          decoding="async"
+          className="client-logo-art max-h-[68px] w-[112%] max-w-none object-contain object-center opacity-100 transition-all duration-500 group-hover:scale-110"
           style={{
-            filter: "grayscale(1) invert(1) contrast(1.08) brightness(1.1)",
-            mixBlendMode: "screen",
+            mixBlendMode: "multiply",
           }}
         />
       </motion.div>
 
-      <div className="pointer-events-none absolute inset-x-0 bottom-0.5 md:bottom-1 z-20 flex flex-col items-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-        <span className="text-[6px] md:text-[8px] font-black tracking-[1px] md:tracking-[2px]" style={{ color: client.accent }}>
+      <div className="pointer-events-none absolute inset-x-0 bottom-1 z-20 flex flex-col items-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        <span className="text-[8px] font-black tracking-[2px]" style={{ color: client.accent }}>
           {client.name}
         </span>
-        <span className="text-[5px] md:text-[6px] font-bold tracking-[1px] md:tracking-[2px] uppercase text-white/40">
+        <span className="text-[6px] font-bold tracking-[2px] uppercase text-white/40">
           {client.category}
         </span>
       </div>
@@ -1836,32 +1811,32 @@ function Experience({ ready, onStartProject }: { ready: boolean; onStartProject:
       <div style={{ height: "1400vh" }} aria-hidden />
       <div className="fixed inset-0 z-0">
         <Canvas
-          dpr={isMobile ? [1, 1] : [1, 2]}
+          dpr={isMobile ? [1, 1.5] : [1, 2]}
           shadows={!isMobile}
           gl={{
-            antialias: !isMobile,
+            antialias: true,
             alpha: true,
-            powerPreference: isMobile ? "low-power" : "high-performance",
+            powerPreference: "high-performance",
             toneMapping: THREE.ACESFilmicToneMapping,
-            toneMappingExposure: isMobile ? 0.95 : 1.15,
+            toneMappingExposure: 1.15,
           }}
-          camera={{ position: [0, 1.7, 8], fov: isMobile ? 48 : 42, near: 0.1, far: 200 }}
+          camera={{ position: [0, 1.7, 8], fov: 42, near: 0.1, far: 200 }}
           onCreated={({ gl, scene }) => {
             gl.setClearColor(0x000000, 0);
-            scene.fog = new THREE.FogExp2(PALETTE.baseFog, isMobile ? 0.012 : 0.008);
+            scene.fog = new THREE.FogExp2(PALETTE.baseFog, 0.008);
           }}
         >
           <Suspense fallback={null}>
             <StudioEnvironment />
             <StudioLights />
             <CameraModel />
-            {!isMobile && <SoftboxModel />}
-            {!isMobile && <PhoneModel />}
-            {!isMobile && <MonitorModel />}
-            {!isMobile && <DroneModel />}
-            <DustParticles count={isMobile ? 40 : 400} />
-            {!isMobile && <LensFlare />}
-            {!isMobile && <LensTransition />}
+            <SoftboxModel />
+            <PhoneModel />
+            <MonitorModel />
+            <DroneModel />
+            <DustParticles count={isMobile ? 150 : 400} />
+            <LensFlare />
+            <LensTransition />
             <CameraRig />
             <AdaptiveDpr pixelated />
             {!isMobile && <PostFX />}
@@ -2042,7 +2017,7 @@ function SceneTransitionWipe() {
           animate={{ opacity: 0, x: "100%" }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed inset-0 z-[14] pointer-events-none overflow-hidden"
+          className="fixed inset-0 z-[14] pointer-events-none"
           style={{
             background:
               "linear-gradient(90deg, transparent 0%, rgba(79,123,255,0.4) 45%, rgba(139,92,246,0.5) 55%, transparent 100%)",
@@ -2108,7 +2083,7 @@ function SoundToggle() {
       onClick={() => setOn(!on)}
       data-hover
       aria-label={on ? "Mute ambient sound" : "Play ambient sound"}
-      className="fixed top-20 md:top-24 right-3 md:right-10 z-[255] flex items-center gap-2 px-2.5 md:px-3 py-1.5 md:py-2 rounded-full border border-white/10 bg-black/40 backdrop-blur-md hover:border-amber/50 transition-colors"
+      className="fixed top-24 right-4 md:right-10 z-[255] flex items-center gap-2 px-3 py-2 rounded-full border border-white/10 bg-black/40 backdrop-blur-md hover:border-amber/50 transition-colors"
     >
       <div className="flex items-end gap-[2px] h-3">
         {[1, 2, 3, 4].map((i) => (
@@ -2121,7 +2096,7 @@ function SoundToggle() {
           />
         ))}
       </div>
-      <span className="text-[8px] md:text-[9px] font-bold tracking-[2px] text-white/60">
+      <span className="text-[9px] font-bold tracking-[2px] text-white/60">
         {on ? "SOUND ON" : "SOUND OFF"}
       </span>
     </button>
@@ -2149,10 +2124,10 @@ function FacebookIcon({ className = "w-6 h-6" }: { className?: string }) {
   );
 }
 
-function YouTubeIcon({ className = "w-6 h-6" }: { className?: string }) {
+function LinkedInIcon({ className = "w-6 h-6" }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden>
-      <path d="M21.6 7.2s-.2-1.4-.8-2c-.8-.8-1.7-.8-2.1-.9C16.8 4.2 12 4.2 12 4.2h-.01s-4.79 0-6.69.1c-.4.05-1.3.05-2.1.9-.6.6-.8 2-.8 2S2.2 8.9 2.2 10.5v1.5c0 1.6.2 3.3.2 3.3s.2 1.4.8 2c.8.8 1.8.8 2.2.9 1.6.15 6.6.2 6.6.2s4.8 0 6.7-.1c.4-.05 1.3-.05 2.1-.9.6-.6.8-2 .8-2s.2-1.7.2-3.3v-1.5c0-1.6-.2-3.3-.2-3.3ZM10 14.5v-5.6l4.8 2.8-4.8 2.8Z" fill="currentColor" />
+      <path d="M5.2 7.3A1.7 1.7 0 1 0 5.2 4a1.7 1.7 0 0 0 0 3.3ZM3.7 9h3v10h-3V9Zm5 0h2.9v1.4h.04c.4-.8 1.4-1.7 3-1.7 3.2 0 3.8 2.1 3.8 4.8V19h-3v-4.9c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.7V19h-3V9Z" fill="currentColor" />
     </svg>
   );
 }
@@ -2169,6 +2144,15 @@ function HeartIcon({ className = "w-6 h-6" }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden>
       <path d="M12 21s-7.5-4.35-9.5-9.05C1.1 8.55 3.2 5 6.5 5c2 0 3.5 1.1 4.5 2.4C12 6.1 13.5 5 15.5 5c3.3 0 5.4 3.55 4 6.95C19.5 16.65 12 21 12 21Z" fill="currentColor" />
+    </svg>
+  );
+}
+
+function EmailIcon({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden>
+      <rect x="3" y="5" width="18" height="14" rx="3" stroke="currentColor" strokeWidth="1.6" />
+      <path d="m3.5 7 8.5 6 8.5-6" stroke="currentColor" strokeWidth="1.6" />
     </svg>
   );
 }
@@ -2193,7 +2177,7 @@ type FloatingIcon = {
 const FLOATING_ICONS: FloatingIcon[] = [
   { id: "ig-1", Icon: InstagramIcon, color: "#d946ef", glow: "rgba(217,70,239,0.6)", startX: 12, startY: 22, size: 46, duration: 14, delay: 0, rotate: -8, url: SOCIAL_LINKS.instagram },
   { id: "fb-1", Icon: FacebookIcon,  color: "#4f7bff", glow: "rgba(79,123,255,0.6)", startX: 84, startY: 18, size: 42, duration: 16, delay: 1.2, rotate: 10, url: SOCIAL_LINKS.facebook },
-  { id: "yt-1", Icon: YouTubeIcon,   color: "#f43f5e", glow: "rgba(244,63,94,0.6)",  startX: 88, startY: 62, size: 44, duration: 15, delay: 0.6, rotate: -12, url: SOCIAL_LINKS.youtube },
+  { id: "li-1", Icon: LinkedInIcon,  color: "#38bdf8", glow: "rgba(56,189,248,0.6)", startX: 88, startY: 62, size: 44, duration: 15, delay: 0.6, rotate: -12, url: SOCIAL_LINKS.linkedin },
   { id: "x-1",  Icon: XIcon,         color: "#ffffff", glow: "rgba(255,255,255,0.45)",startX: 14, startY: 72, size: 38, duration: 17, delay: 1.8, rotate: 6, url: SOCIAL_LINKS.x },
   { id: "ig-2", Icon: InstagramIcon, color: "#d946ef", glow: "rgba(217,70,239,0.5)", startX: 8,  startY: 48, size: 34, duration: 18, delay: 2.4, rotate: 18, url: SOCIAL_LINKS.instagram },
   { id: "fb-2", Icon: FacebookIcon,  color: "#4f7bff", glow: "rgba(79,123,255,0.5)", startX: 78, startY: 84, size: 36, duration: 15, delay: 1.0, rotate: -20, url: SOCIAL_LINKS.facebook },
@@ -2203,8 +2187,8 @@ const FLOATING_ICONS: FloatingIcon[] = [
 
 function FloatingSocialIcons() {
   const p = useScrollState();
-  const visible = p >= 0.78 && p <= 0.94;
-  const fade = visible ? Math.min(1, Math.max(0, (p - 0.78) / 0.03) * Math.max(0, (0.94 - p) / 0.03)) : 0;
+  const visible = p >= 0.86 && p <= 1.01;
+  const fade = visible ? Math.min(1, Math.max(0, (p - 0.86) / 0.03) * Math.max(0, (1.01 - p) / 0.03)) : 0;
 
   return (
     <AnimatePresence>
@@ -2378,10 +2362,7 @@ function BottomBar() {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-30 hidden md:block pointer-events-none">
-      <div
-        className="border-t border-white/5 bg-black/40 backdrop-blur-md"
-        style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
-      >
+      <div className="border-t border-white/5 bg-black/40 backdrop-blur-md">
         <div className="px-8 py-3 flex items-center justify-between gap-6">
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2">
@@ -2394,11 +2375,22 @@ function BottomBar() {
           </div>
 
           <div className="flex items-center gap-6">
-            <div className="relative overflow-hidden w-[220px] hidden lg:block">
-              <div className="flex whitespace-nowrap animate-marquee">
-                <span className="text-white/30 text-[9px] tracking-[4px] font-bold pr-8">WE MADE VIBES · WE CAPTURE · WE GROW ·</span>
-                <span className="text-white/30 text-[9px] tracking-[4px] font-bold pr-8">WE MADE VIBES · WE CAPTURE · WE GROW ·</span>
-              </div>
+            <div className="hidden lg:flex items-center gap-4 text-[9px] tracking-[2px] font-bold text-white/40">
+              <a
+                href={`mailto:${CONTACT_INFO.email}`}
+                data-hover
+                className="pointer-events-auto hover:text-amber transition-colors"
+              >
+                {CONTACT_INFO.email}
+              </a>
+              <span className="w-1 h-1 rounded-full bg-white/20" />
+              <a
+                href={`tel:${CONTACT_INFO.phone}`}
+                data-hover
+                className="pointer-events-auto hover:text-amber transition-colors"
+              >
+                {CONTACT_INFO.phone}
+              </a>
             </div>
             <span className="text-amber text-[11px] font-black tabular-nums tracking-wider">
               {String(current + 1).padStart(2, "0")} / {String(TOTAL_SCENES).padStart(2, "0")}
@@ -2483,7 +2475,7 @@ function AnimatedCounter({ target, duration = 1.6 }: { target: number; duration?
 }
 
 // ═══════════════════════════════════════════════════════════
-// OVERLAYS — client logos now live inside the DM Clients overlay
+// OVERLAYS — Social scene removed; Contact scene enriched
 // ═══════════════════════════════════════════════════════════
 function OverlaySections({ onStartProject }: { onStartProject: () => void }) {
   const p = useScrollState();
@@ -2491,19 +2483,42 @@ function OverlaySections({ onStartProject }: { onStartProject: () => void }) {
 
   return (
     <div className="fixed inset-0 z-10 pointer-events-none">
+      <div
+        aria-hidden
+        className="absolute inset-0 z-0 overflow-hidden"
+        style={{
+          opacity: show(0, 0.11),
+          transition: "opacity 900ms cubic-bezier(0.16, 1, 0.3, 1)",
+        }}
+      >
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: "url('/images/studio-bg.webp')",
+            transform: "scale(1.03)",
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "linear-gradient(90deg, rgba(4,5,12,0.8) 0%, rgba(4,5,12,0.3) 55%, rgba(4,5,12,0.55) 100%), linear-gradient(0deg, rgba(4,5,12,0.78) 0%, transparent 52%, rgba(4,5,12,0.25) 100%)",
+          }}
+        />
+      </div>
+
       <Overlay show={show(0, 0.11)} align="bottom-left">
         <div className="flex items-center gap-3 mb-5">
           <div className="w-10 h-[1px] bg-[#f43f5e] shadow-[0_0_8px_#f43f5e]" />
           <span className="text-[#f43f5e] text-[10px] font-bold tracking-[6px]">NOW RECORDING</span>
         </div>
-        <h1 className="text-[28px] sm:text-[36px] md:text-[84px] font-black italic text-white text-cinematic leading-[0.92] tracking-tight">
-          <SplitText text="IT ALL" delay={0.2} />
+        <h1 className="text-[40px] md:text-[84px] font-black italic text-white text-cinematic leading-[0.92] tracking-tight">
+          <SplitText text="IT ALL" delay={0.04} />
           <br />
-          <SplitText text="STARTS HERE." delay={0.45} />
+          <SplitText text="STARTS HERE." delay={0.12} />
         </h1>
         <div className="flex items-center gap-4 mt-7">
           <div className="w-16 h-[1px] bg-amber/60" />
-          <span className="text-white/50 text-[9px] sm:text-[10px] tracking-[4px] font-bold">DM VIBES · EST. 2020 · CAIRO, EG</span>
+          <span className="text-white/50 text-[10px] tracking-[4px] font-bold">DM VIBES · EST. 2020 · CAIRO, EG</span>
         </div>
       </Overlay>
 
@@ -2513,21 +2528,21 @@ function OverlaySections({ onStartProject }: { onStartProject: () => void }) {
           <span className="text-amber text-[10px] font-bold tracking-[6px]">02 · ABOUT US</span>
           <div className="w-8 h-[1px] bg-amber" />
         </div>
-        <h2 className="text-[22px] sm:text-[30px] md:text-[54px] font-black text-white text-cinematic leading-[1] max-w-[820px] text-center tracking-tight">
+        <h2 className="text-[26px] md:text-[54px] font-black text-white text-cinematic leading-[1] max-w-[820px] text-center tracking-tight">
           <SplitText text="WE DON'T JUST" delay={0.1} />
           <br />
           <SplitText text="CREATE CONTENT." delay={0.25} />
           <br />
           <span className="text-amber italic text-amber-glow"><SplitText text="WE MADE VIBES." delay={0.4} /></span>
         </h2>
-        <p className="text-white/55 text-[11px] sm:text-[13px] mt-7 max-w-[440px] text-center leading-relaxed animate-[fadeUp_1s_0.7s_both]">
+        <p className="text-white/55 text-[13px] mt-7 max-w-[440px] text-center leading-relaxed animate-[fadeUp_1s_0.7s_both]">
           A creative production and digital marketing studio focused on visual experiences, powerful content, and growth-driven strategies.
         </p>
       </Overlay>
 
       <Overlay show={show(0.24, 0.34)} align="left">
         <ServiceHeader num="03" label="SERVICE 01" />
-        <h2 className="text-[30px] sm:text-[42px] md:text-[68px] font-black text-white text-cinematic leading-[0.92] tracking-tight">
+        <h2 className="text-4xl md:text-[68px] font-black text-white text-cinematic leading-[0.92] tracking-tight">
           <SplitText text="MEDIA" delay={0.1} />
           <br />
           <span className="text-amber italic text-amber-glow"><SplitText text="PRODUCTION" delay={0.28} /></span>
@@ -2540,7 +2555,7 @@ function OverlaySections({ onStartProject }: { onStartProject: () => void }) {
 
       <Overlay show={show(0.34, 0.44)} align="left">
         <ServiceHeader num="04" label="SERVICE 02" />
-        <h2 className="text-[30px] sm:text-[42px] md:text-[68px] font-black text-white text-cinematic leading-[0.92] tracking-tight">
+        <h2 className="text-4xl md:text-[68px] font-black text-white text-cinematic leading-[0.92] tracking-tight">
           <SplitText text="DIGITAL" delay={0.1} />
           <br />
           <span className="text-amber italic text-amber-glow"><SplitText text="MARKETING" delay={0.28} /></span>
@@ -2557,40 +2572,48 @@ function OverlaySections({ onStartProject }: { onStartProject: () => void }) {
           <span className="text-amber text-[10px] font-bold tracking-[6px]">05 · SERVICE 03</span>
           <div className="w-8 h-[1px] bg-amber" />
         </div>
-        <h2 className="text-[30px] sm:text-[42px] md:text-[68px] font-black text-white text-cinematic leading-[0.92] tracking-tight text-right">
+        <h2 className="text-4xl md:text-[68px] font-black text-white text-cinematic leading-[0.92] tracking-tight text-right">
           <SplitText text="A HIGHER" delay={0.1} />
           <br />
           <span className="text-amber italic text-amber-glow"><SplitText text="VIEW." delay={0.28} /></span>
         </h2>
-        <p className="text-white/55 text-[11px] sm:text-[13px] mt-6 max-w-[340px] text-right leading-relaxed ml-auto">
+        <p className="text-white/55 text-[13px] mt-6 max-w-[340px] text-right leading-relaxed ml-auto">
           See your brand from a different perspective. Cinematic aerial storytelling with cinema-grade drones.
         </p>
       </Overlay>
 
       <Overlay show={show(0.54, 0.64)} align="left">
         <ServiceHeader num="06" label="SERVICE 04" />
-        <h2 className="text-[30px] sm:text-[42px] md:text-[68px] font-black text-white text-cinematic leading-[0.92] tracking-tight">
+        <h2 className="text-4xl md:text-[68px] font-black text-white text-cinematic leading-[0.92] tracking-tight">
           <SplitText text="VIDEO" delay={0.1} />
           <br />
           <span className="text-amber italic text-amber-glow"><SplitText text="EDITING" delay={0.28} /></span>
         </h2>
-        <p className="text-white/55 text-[11px] sm:text-[13px] mt-6 max-w-[340px] leading-relaxed">
+        <p className="text-white/55 text-[13px] mt-6 max-w-[340px] leading-relaxed">
           Every frame tells a story. Post-production crafted with precision and cinema-grade color.
         </p>
       </Overlay>
 
       {/* 🆕 DM CLIENTS — ALL 27 LOGOS, IN-PAGE, ANIMATED */}
-      <Overlay show={show(0.64, 0.72)} align="center">
+      <Overlay show={show(0.64, 0.76)} align="center" entranceDelay={1000}>
         <div className="w-full max-w-[1100px]">
-          <div className="mb-3 md:mb-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-4 border-b border-white/10 pb-3">
+          <div className="mb-5 flex items-center justify-between gap-4 border-b border-white/10 pb-3">
             <div className="flex items-center gap-3">
-              <div className="w-6 md:w-8 h-[1px] bg-white/30" />
-              <span className="text-white/70 text-[9px] md:text-[10px] font-bold tracking-[4px] md:tracking-[6px]">07 · DM CLIENTS</span>
+              <div className="w-8 h-[1px] bg-white/30" />
+              <span className="text-white/70 text-[10px] font-bold tracking-[6px]">07 · DM CLIENTS</span>
             </div>
-            <span className="text-amber text-[9px] md:text-[10px] font-bold tracking-[3px] md:tracking-[4px]">TRUSTED BY 27+ BRANDS</span>
+            <span className="text-amber text-[10px] font-bold tracking-[4px]">TRUSTED BY 27+ BRANDS</span>
           </div>
 
-          <div className="grid grid-cols-3 gap-1.5 sm:grid-cols-4 sm:gap-2 md:grid-cols-5 lg:grid-cols-6 md:gap-3">
+            <div
+            className="client-logo-panel grid grid-cols-4 gap-1.5 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-7 md:gap-2"
+            style={{
+              padding: "4px",
+              borderRadius: "18px",
+              background: "radial-gradient(circle at 50% 0%, rgba(122,162,255,0.28), rgba(4,5,12,0.2) 68%)",
+              boxShadow: "0 0 50px rgba(79,123,255,0.38), inset 0 0 35px rgba(122,162,255,0.12)",
+            }}
+          >
             {DM_CLIENTS.map((client, i) => (
               <AnimatedClientCard
                 key={client.name}
@@ -2603,13 +2626,13 @@ function OverlaySections({ onStartProject }: { onStartProject: () => void }) {
         </div>
       </Overlay>
 
-      <Overlay show={show(0.72, 0.80)} align="center">
+      <Overlay show={show(0.76, 0.80)} align="center">
         <div className="flex items-center gap-3 mb-5">
           <div className="w-8 h-[1px] bg-amber" />
           <span className="text-amber text-[10px] font-bold tracking-[6px]">08 · OUR WORK</span>
           <div className="w-8 h-[1px] bg-amber" />
         </div>
-        <h2 className="text-[26px] sm:text-[36px] md:text-[80px] font-black text-white text-cinematic leading-[0.92] tracking-tight">
+        <h2 className="text-[32px] md:text-[80px] font-black text-white text-cinematic leading-[0.92] tracking-tight">
           <SplitText text="SELECTED" delay={0.1} />
           <br />
           <span className="text-amber italic text-amber-glow"><SplitText text="PROJECTS." delay={0.28} /></span>
@@ -2624,59 +2647,41 @@ function OverlaySections({ onStartProject }: { onStartProject: () => void }) {
       </Overlay>
 
       <Overlay show={show(0.80, 0.88)} align="center">
-        <div className="flex items-center gap-3 mb-6 md:mb-10">
+        <div className="flex items-center gap-3 mb-10">
           <div className="w-8 h-[1px] bg-amber" />
-          <span className="text-amber text-[9px] md:text-[10px] font-bold tracking-[4px] md:tracking-[6px]">09 · THE NUMBERS</span>
+          <span className="text-amber text-[10px] font-bold tracking-[6px]">09 · THE NUMBERS</span>
           <div className="w-8 h-[1px] bg-amber" />
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-14">
-          <div className="relative flex items-center justify-center w-[140px] h-[140px] sm:w-[160px] sm:h-[160px] md:w-[170px] md:h-[170px]">
-            <StatRing color="#4f7bff" delay={0} size={140} />
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-14">
+          <div className="relative">
+            <StatRing color="#4f7bff" delay={0} size={170} />
             <StatBig value={120} suffix="+" label="PROJECTS" delay={0} />
           </div>
-          <div className="relative flex items-center justify-center w-[140px] h-[140px] sm:w-[160px] sm:h-[160px] md:w-[170px] md:h-[170px]">
-            <StatRing color="#a78bfa" delay={1} size={140} />
+          <div className="relative">
+            <StatRing color="#a78bfa" delay={1} size={170} />
             <StatBig value={35} suffix="+" label="BRANDS" delay={0.15} />
           </div>
-          <div className="relative flex items-center justify-center w-[140px] h-[140px] sm:w-[160px] sm:h-[160px] md:w-[170px] md:h-[170px]">
-            <StatRing color="#d946ef" delay={2} size={140} />
+          <div className="relative">
+            <StatRing color="#d946ef" delay={2} size={170} />
             <StatBig value={4} suffix="" label="SERVICES" delay={0.3} />
           </div>
-          <div className="relative flex items-center justify-center w-[140px] h-[140px] sm:w-[160px] sm:h-[160px] md:w-[170px] md:h-[170px]">
-            <StatRing color="#34d399" delay={3} size={140} />
+          <div className="relative">
+            <StatRing color="#34d399" delay={3} size={170} />
             <StatBigStatic value="∞" label="IDEAS" delay={0.45} />
           </div>
         </div>
       </Overlay>
 
-      <Overlay show={show(0.88, 0.96)} align="center">
+      {/* ═══════════════════════════════════════════════════════
+          🎯 SCENE 10 — LET'S TALK (all social + contact links)
+          ═══════════════════════════════════════════════════════ */}
+      <Overlay show={show(0.88, 1.01)} align="center">
         <div className="flex items-center gap-3 mb-4">
           <div className="w-8 h-[1px] bg-amber" />
-          <span className="text-amber text-[10px] font-bold tracking-[6px]">10 · FOLLOW THE VIBES</span>
+          <span className="text-amber text-[10px] font-bold tracking-[6px]">10 · GOT A VISION?</span>
           <div className="w-8 h-[1px] bg-amber" />
         </div>
-        <h2 className="text-[24px] sm:text-[30px] md:text-[56px] font-black text-white text-cinematic leading-[0.95] tracking-tight mb-2">
-          <SplitText text="JOIN THE" delay={0.1} />
-          <br />
-          <span className="text-amber italic text-amber-glow"><SplitText text="MOVEMENT." delay={0.28} /></span>
-        </h2>
-        <p className="text-white/50 text-[10px] sm:text-[12px] tracking-[2px] max-w-[420px] text-center leading-relaxed mt-3 mb-7 animate-[fadeUp_1s_0.5s_both]">
-          Follow us on social media for behind-the-scenes, drops, and cinematic work.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 w-full max-w-[820px]">
-          <SocialCard platform="instagram" handle="@dmvibes.eg" followers="24.5K" tag="STORIES · REELS" url={SOCIAL_LINKS.instagram} delay={0.6} />
-          <SocialCard platform="facebook" handle="/dmvibes.eg" followers="18.2K" tag="COMMUNITY · LIVE" url={SOCIAL_LINKS.facebook} delay={0.72} />
-          <SocialCard platform="youtube" handle="@DMVibes" followers="42.8K" tag="4K · CINEMATIC" url={SOCIAL_LINKS.youtube} delay={0.84} />
-        </div>
-      </Overlay>
-
-      <Overlay show={show(0.96, 1.01)} align="center">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-8 h-[1px] bg-amber" />
-          <span className="text-amber text-[10px] font-bold tracking-[6px]">11 · GOT A VISION?</span>
-          <div className="w-8 h-[1px] bg-amber" />
-        </div>
-        <h2 className="text-[24px] sm:text-[32px] md:text-[64px] font-black text-white text-cinematic leading-[0.95] tracking-tight">
+        <h2 className="text-[28px] md:text-[64px] font-black text-white text-cinematic leading-[0.95] tracking-tight">
           <SplitText text="LET'S MAKE" delay={0.1} />
           <br />
           <span className="text-amber italic text-amber-glow"><SplitText text="IT REAL." delay={0.28} /></span>
@@ -2685,11 +2690,132 @@ function OverlaySections({ onStartProject }: { onStartProject: () => void }) {
           <div className="w-2 h-2 rounded-full bg-amber shadow-[0_0_14px_#4f7bff] animate-[pulseDot_1.6s_ease-in-out_infinite]" />
           <span className="text-white/50 text-[11px] tracking-[6px] font-bold">GOOD VIBES ONLY</span>
         </div>
+
+        {/* ─── CONTACT DETAILS ─── */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4 mt-8 w-full max-w-[760px]">
+          <motion.a
+            href={`https://maps.google.com/?q=${encodeURIComponent(CONTACT_INFO.office)}`}
+            target="_blank"
+            rel="noreferrer"
+            data-hover
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="pointer-events-auto group flex flex-col items-center gap-2 rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-md px-4 py-4 transition-all duration-500 hover:border-amber/40 hover:-translate-y-1"
+          >
+            <div
+              className="w-9 h-9 rounded-xl flex items-center justify-center border border-white/10 text-amber transition-all duration-500 group-hover:scale-110"
+              style={{ background: "linear-gradient(135deg, rgba(79,123,255,0.15), transparent)", boxShadow: "0 0 20px rgba(79,123,255,0.25)" }}
+            >
+              <svg viewBox="0 0 24 24" fill="none" className="w-4 h-4">
+                <path d="M12 21s-7-6.2-7-11a7 7 0 1 1 14 0c0 4.8-7 11-7 11Z" stroke="currentColor" strokeWidth="1.6" />
+                <circle cx="12" cy="10" r="2.5" stroke="currentColor" strokeWidth="1.6" />
+              </svg>
+            </div>
+            <span className="text-[8px] font-bold tracking-[3px] text-white/40">OFFICE & STUDIO</span>
+            <span className="text-[11px] font-semibold text-white/80 text-center leading-snug">{CONTACT_INFO.office}</span>
+          </motion.a>
+
+          <motion.a
+            href={`mailto:${CONTACT_INFO.email}`}
+            data-hover
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.62, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="pointer-events-auto group flex flex-col items-center gap-2 rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-md px-4 py-4 transition-all duration-500 hover:border-amber/40 hover:-translate-y-1"
+          >
+            <div
+              className="w-9 h-9 rounded-xl flex items-center justify-center border border-white/10 text-amber transition-all duration-500 group-hover:scale-110"
+              style={{ background: "linear-gradient(135deg, rgba(139,92,246,0.15), transparent)", boxShadow: "0 0 20px rgba(139,92,246,0.25)" }}
+            >
+              <svg viewBox="0 0 24 24" fill="none" className="w-4 h-4">
+                <rect x="3" y="5" width="18" height="14" rx="3" stroke="currentColor" strokeWidth="1.6" />
+                <path d="m3.5 7 8.5 6 8.5-6" stroke="currentColor" strokeWidth="1.6" />
+              </svg>
+            </div>
+            <span className="text-[8px] font-bold tracking-[3px] text-white/40">EMAIL</span>
+            <span className="text-[11px] font-semibold text-white/80 text-center leading-snug break-all">{CONTACT_INFO.email}</span>
+          </motion.a>
+
+          <motion.a
+            href={`tel:${CONTACT_INFO.phone}`}
+            data-hover
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.74, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="pointer-events-auto group flex flex-col items-center gap-2 rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-md px-4 py-4 transition-all duration-500 hover:border-amber/40 hover:-translate-y-1"
+          >
+            <div
+              className="w-9 h-9 rounded-xl flex items-center justify-center border border-white/10 text-amber transition-all duration-500 group-hover:scale-110"
+              style={{ background: "linear-gradient(135deg, rgba(217,70,239,0.15), transparent)", boxShadow: "0 0 20px rgba(217,70,239,0.25)" }}
+            >
+              <svg viewBox="0 0 24 24" fill="none" className="w-4 h-4">
+                <path d="M4 5c0 8.3 6.7 15 15 15l1.5-3.5-4-1.5-1.5 2c-3-1.2-5.3-3.5-6.5-6.5l2-1.5L9 5H4Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+              </svg>
+            </div>
+            <span className="text-[8px] font-bold tracking-[3px] text-white/40">PHONE</span>
+            <span className="text-[11px] font-semibold text-white/80 text-center leading-snug">{CONTACT_INFO.phone}</span>
+          </motion.a>
+        </div>
+
+        {/* ─── SOCIAL LINKS GRID ─── */}
+        <div className="mt-6 w-full max-w-[760px]">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="h-[1px] flex-1 bg-white/10" />
+            <span className="text-white/40 text-[9px] font-bold tracking-[5px]">FOLLOW THE VIBES</span>
+            <div className="h-[1px] flex-1 bg-white/10" />
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5">
+            <SocialLinkCard
+              platform="instagram"
+              label="INSTAGRAM"
+              handle="@dmvibes.eg"
+              url={SOCIAL_LINKS.instagram}
+              accent="#d946ef"
+              glow="rgba(217,70,239,0.5)"
+              Icon={InstagramIcon}
+              delay={0.85}
+            />
+            <SocialLinkCard
+              platform="facebook"
+              label="FACEBOOK"
+              handle="/dmvibes.eg"
+              url={SOCIAL_LINKS.facebook}
+              accent="#4f7bff"
+              glow="rgba(79,123,255,0.5)"
+              Icon={FacebookIcon}
+              delay={0.92}
+            />
+            <SocialLinkCard
+              platform="linkedin"
+              label="LINKEDIN"
+              handle="/company/dmvibes"
+              url={SOCIAL_LINKS.linkedin}
+              accent="#38bdf8"
+              glow="rgba(56,189,248,0.5)"
+              Icon={LinkedInIcon}
+              delay={0.99}
+            />
+            <SocialLinkCard
+              platform="x"
+              label="X (TWITTER)"
+              handle="@dmvibes_eg"
+              url={SOCIAL_LINKS.x}
+              accent="#ffffff"
+              glow="rgba(255,255,255,0.4)"
+              Icon={XIcon}
+              delay={1.06}
+            />
+          </div>
+        </div>
+
+        {/* ─── PRIMARY CTA ─── */}
         <button
           type="button"
           onClick={onStartProject}
           data-hover
-          className="pointer-events-auto group relative inline-flex items-center gap-3 mt-7 px-7 py-3.5 rounded-full text-white font-bold tracking-[3px] text-xs transition-all duration-300 hover:scale-105 overflow-hidden"
+          className="pointer-events-auto group relative inline-flex items-center gap-3 mt-8 px-7 py-3.5 rounded-full text-white font-bold tracking-[3px] text-xs transition-all duration-300 hover:scale-105 overflow-hidden"
           style={{
             background: "linear-gradient(135deg, #4f7bff 0%, #8b5cf6 100%)",
             boxShadow: "0 0 30px rgba(79,123,255,0.45), inset 0 0 0 1px rgba(255,255,255,0.08)",
@@ -2705,19 +2831,90 @@ function OverlaySections({ onStartProject }: { onStartProject: () => void }) {
           <span className="relative z-10">START A PROJECT</span>
           <span className="relative z-10 group-hover:translate-x-1 transition-transform">→</span>
         </button>
-        <div className="flex flex-wrap items-center justify-center gap-5 md:gap-6 mt-9 text-[10px] tracking-[3px] text-white/40 font-bold">
-          <a href={SOCIAL_LINKS.instagram} target="_blank" rel="noreferrer" data-hover className="pointer-events-auto hover:text-amber transition-colors">INSTAGRAM</a>
-          <span className="w-1 h-1 rounded-full bg-white/20" />
-          <a href={SOCIAL_LINKS.facebook} target="_blank" rel="noreferrer" data-hover className="pointer-events-auto hover:text-amber transition-colors">FACEBOOK</a>
-          <span className="w-1 h-1 rounded-full bg-white/20" />
-          <a href={SOCIAL_LINKS.youtube} target="_blank" rel="noreferrer" data-hover className="pointer-events-auto hover:text-amber transition-colors">YOUTUBE</a>
-          <span className="w-1 h-1 rounded-full bg-white/20" />
-          <a href={SOCIAL_LINKS.x} target="_blank" rel="noreferrer" data-hover className="pointer-events-auto hover:text-amber transition-colors">X</a>
-          <span className="w-1 h-1 rounded-full bg-white/20" />
-          <a href="mailto:hello@dmvibes.eg" data-hover className="pointer-events-auto hover:text-amber transition-colors">EMAIL</a>
-        </div>
       </Overlay>
     </div>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════
+// SOCIAL LINK CARD (used in the Let's Talk scene)
+// ═══════════════════════════════════════════════════════════
+function SocialLinkCard({
+  label,
+  handle,
+  url,
+  accent,
+  glow,
+  Icon,
+  delay = 0,
+}: {
+  platform: "instagram" | "facebook" | "linkedin" | "x";
+  label: string;
+  handle: string;
+  url: string;
+  accent: string;
+  glow: string;
+  Icon: (props: { className?: string }) => React.ReactElement;
+  delay?: number;
+}) {
+  return (
+    <motion.a
+      href={url}
+      target="_blank"
+      rel="noreferrer"
+      data-hover
+      initial={{ opacity: 0, y: 20, scale: 0.95 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ delay, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      whileHover={{ y: -4, scale: 1.03 }}
+      className="pointer-events-auto group relative flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.02] backdrop-blur-md px-3 py-2.5 overflow-hidden transition-all duration-500 hover:border-white/25"
+      style={{ boxShadow: `0 0 0 0 ${glow}` }}
+    >
+      {/* hover glow */}
+      <span
+        aria-hidden
+        className="absolute -inset-6 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-2xl pointer-events-none"
+        style={{ background: glow }}
+      />
+
+      {/* left accent bar */}
+      <span
+        aria-hidden
+        className="absolute left-0 top-0 bottom-0 w-[2px] origin-top scale-y-0 group-hover:scale-y-100 transition-transform duration-500"
+        style={{ background: accent }}
+      />
+
+      {/* icon */}
+      <div
+        className="relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/10 transition-all duration-500 group-hover:scale-110"
+        style={{
+          color: accent,
+          background: `linear-gradient(135deg, ${accent}22, transparent)`,
+          boxShadow: `inset 0 0 0 1px ${accent}33`,
+        }}
+      >
+        <Icon className="w-4 h-4" />
+      </div>
+
+      {/* text */}
+      <div className="relative z-10 flex min-w-0 flex-col items-start leading-tight">
+        <span className="text-[9px] font-bold tracking-[2px] text-white/40 group-hover:text-white/70 transition-colors">
+          {label}
+        </span>
+        <span className="text-[10px] font-semibold text-white/75 truncate max-w-full group-hover:text-white transition-colors">
+          {handle}
+        </span>
+      </div>
+
+      {/* arrow */}
+      <span
+        aria-hidden
+        className="relative z-10 ml-auto text-[10px] font-bold opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300"
+        style={{ color: accent }}
+      >
+        →
+      </span>
+    </motion.a>
   );
 }
 
@@ -2748,27 +2945,18 @@ function ServiceBullet({ children, delay = 0 }: { children: ReactNode; delay?: n
 function StatBig({ value, suffix, label, delay = 0 }: { value: number; suffix: string; label: string; delay?: number }) {
   return (
     <motion.div
-      className="flex flex-col items-center cursor-default relative z-10"
+      className="flex flex-col items-center min-w-[120px] md:min-w-[160px] cursor-default relative"
       style={{ animation: `fadeUp 0.8s ${delay}s both` }}
       whileHover={{ y: -6, scale: 1.05 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
       <div className="flex items-baseline justify-center tabular-nums">
-        <span
-          className="text-[28px] sm:text-[40px] md:text-[72px] lg:text-[88px] font-black text-white leading-none tracking-tighter tabular-nums"
-          style={{ textShadow: "0 0 44px rgba(79,123,255,0.4)", minWidth: "1ch" }}
-        >
+        <span className="text-[52px] md:text-[88px] font-black text-white leading-none tracking-tighter tabular-nums" style={{ textShadow: "0 0 44px rgba(79,123,255,0.4)", minWidth: "1ch" }}>
           <AnimatedCounter target={value} />
         </span>
-        {suffix && (
-          <span className="text-[14px] sm:text-[22px] md:text-[44px] lg:text-[52px] font-black text-amber leading-none ml-0.5 md:ml-1">
-            {suffix}
-          </span>
-        )}
+        {suffix && <span className="text-[28px] md:text-[52px] font-black text-amber leading-none ml-1">{suffix}</span>}
       </div>
-      <span className="text-white/40 text-[8px] md:text-[10px] tracking-[3px] md:tracking-[5px] font-bold mt-2 md:mt-4">
-        {label}
-      </span>
+      <span className="text-white/40 text-[10px] tracking-[5px] font-bold mt-4">{label}</span>
     </motion.div>
   );
 }
@@ -2776,133 +2964,47 @@ function StatBig({ value, suffix, label, delay = 0 }: { value: number; suffix: s
 function StatBigStatic({ value, label, delay = 0 }: { value: string; label: string; delay?: number }) {
   return (
     <motion.div
-      className="flex flex-col items-center cursor-default relative z-10"
+      className="flex flex-col items-center min-w-[120px] md:min-w-[160px] cursor-default relative"
       style={{ animation: `fadeUp 0.8s ${delay}s both` }}
       whileHover={{ y: -6, scale: 1.05 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
       <div className="flex items-baseline justify-center">
-        <span
-          className="text-[28px] sm:text-[40px] md:text-[72px] lg:text-[88px] font-black text-white leading-none tracking-tighter"
-          style={{ textShadow: "0 0 44px rgba(139,92,246,0.45)", animation: "glowPulse 3s ease-in-out infinite" }}
-        >
+        <span className="text-[52px] md:text-[88px] font-black text-white leading-none tracking-tighter" style={{ textShadow: "0 0 44px rgba(139,92,246,0.45)", animation: "glowPulse 3s ease-in-out infinite" }}>
           {value}
         </span>
       </div>
-      <span className="text-white/40 text-[8px] md:text-[10px] tracking-[3px] md:tracking-[5px] font-bold mt-2 md:mt-4">
-        {label}
-      </span>
+      <span className="text-white/40 text-[10px] tracking-[5px] font-bold mt-4">{label}</span>
     </motion.div>
-  );
-}
-
-// ═══════════════════════════════════════════════════════════
-// SOCIAL CARD
-// ═══════════════════════════════════════════════════════════
-const SOCIAL_ICONS = { instagram: InstagramIcon, facebook: FacebookIcon, youtube: YouTubeIcon } as const;
-const SOCIAL_COLORS = {
-  instagram: { accent: "#d946ef", glow: "rgba(217,70,239,0.5)" },
-  facebook:  { accent: "#4f7bff", glow: "rgba(79,123,255,0.5)" },
-  youtube:   { accent: "#f43f5e", glow: "rgba(244,63,94,0.5)" },
-} as const;
-
-function SocialCard({ platform, handle, followers, tag, url, delay = 0 }: {
-  platform: "instagram" | "facebook" | "youtube";
-  handle: string; followers: string; tag: string; url: string; delay?: number;
-}) {
-  const Icon = SOCIAL_ICONS[platform];
-  const { accent, glow } = SOCIAL_COLORS[platform];
-
-  return (
-    <a
-      href={url}
-      target="_blank"
-      rel="noreferrer"
-      data-hover
-      className="pointer-events-auto group relative flex flex-col items-start gap-2.5 p-3 sm:p-4 md:p-5 rounded-2xl border border-white/8 bg-white/[0.02] backdrop-blur-md overflow-hidden transition-all duration-500 hover:border-white/20 hover:-translate-y-1"
-      style={{ animation: `fadeUp 0.8s ${delay}s both`, willChange: "transform" }}
-    >
-      <span aria-hidden className="absolute -top-16 -right-16 w-40 h-40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-3xl" style={{ background: glow }} />
-      <span aria-hidden className="absolute left-0 top-0 bottom-0 w-[2px] origin-top scale-y-0 group-hover:scale-y-100 transition-transform duration-500" style={{ background: accent }} />
-
-      <div className="flex items-center justify-between w-full relative z-10">
-        <div className="w-10 h-10 rounded-xl flex items-center justify-center border border-white/10 transition-all duration-500 group-hover:scale-110" style={{ color: accent, background: `linear-gradient(135deg, ${accent}22, transparent)`, boxShadow: `0 0 0 0 ${glow}` }}>
-          <Icon className="w-5 h-5" />
-        </div>
-        <span className="text-[9px] tracking-[3px] font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ color: accent }}>
-          FOLLOW →
-        </span>
-      </div>
-
-      <div className="relative z-10 mt-1">
-        <div className="flex items-baseline gap-2">
-          <span className="text-white text-lg sm:text-xl md:text-2xl font-black tabular-nums leading-none">{followers}</span>
-          <span className="text-white/40 text-[9px] sm:text-[10px] font-bold tracking-[3px]">FOLLOWERS</span>
-        </div>
-        <div className="text-white/60 text-[11px] font-semibold tracking-wider mt-2.5">{handle}</div>
-        <div className="text-white/30 text-[9px] tracking-[3px] font-bold mt-1 uppercase">{tag}</div>
-      </div>
-    </a>
   );
 }
 
 // ═══════════════════════════════════════════════════════════
 // OVERLAY WRAPPER
 // ═══════════════════════════════════════════════════════════
-function Overlay({ show, align, children }: { show: number; align: "left" | "right" | "center" | "bottom-left"; children: ReactNode }) {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const media = window.matchMedia("(max-width: 768px)");
-    const update = () => setIsMobile(media.matches);
-    update();
-    media.addEventListener("change", update);
-    return () => media.removeEventListener("change", update);
-  }, []);
-
+function Overlay({ show, align, children, entranceDelay = 0 }: { show: number; align: "left" | "right" | "center" | "bottom-left"; children: ReactNode; entranceDelay?: number }) {
   const textAlignClass =
-    align === "center"
-      ? "items-center text-center"
-      : align === "right"
-      ? "items-end text-right"
-      : "items-start text-left";
+    align === "center" ? "items-center text-center"
+    : align === "right" ? "items-end text-right"
+    : "items-start text-left";
 
   const isHero = align === "bottom-left";
   const ty = show ? 0 : 24;
   const scale = show ? 1 : 0.98;
 
-  let positionedClass = "";
-  let finalTransform = "";
+  const finalTransform = isHero
+    ? `translateY(${ty}px) scale(${scale})`
+    : align === "center"
+    ? `translate(-50%, -50%) translateY(${ty}px) scale(${scale})`
+    : `translateY(-50%) translateY(${ty}px) scale(${scale})`;
 
-  if (isMobile) {
-    if (isHero) {
-      positionedClass = "bottom-[8vh] left-[5vw] right-[5vw]";
-      finalTransform = `translateY(${ty * 0.5}px) scale(${scale})`;
-    } else if (align === "center") {
-      positionedClass = "top-1/2 left-0 right-0 px-[5vw]";
-      finalTransform = `translateY(-50%) translateY(${ty * 0.5}px) scale(${scale})`;
-    } else if (align === "right") {
-      positionedClass = "top-1/2 right-[5vw] left-[10vw]";
-      finalTransform = `translateY(-50%) translateY(${ty * 0.5}px) scale(${scale})`;
-    } else {
-      positionedClass = "top-1/2 left-[5vw] right-[10vw]";
-      finalTransform = `translateY(-50%) translateY(${ty * 0.5}px) scale(${scale})`;
-    }
-  } else {
-    if (isHero) {
-      positionedClass = "bottom-[14vh] left-[6%]";
-      finalTransform = `translateY(${ty}px) scale(${scale})`;
-    } else if (align === "center") {
-      positionedClass = "top-1/2 left-1/2";
-      finalTransform = `translate(-50%, -50%) translateY(${ty}px) scale(${scale})`;
-    } else if (align === "right") {
-      positionedClass = "top-1/2 right-[6%]";
-      finalTransform = `translateY(-50%) translateY(${ty}px) scale(${scale})`;
-    } else {
-      positionedClass = "top-1/2 left-[6%]";
-      finalTransform = `translateY(-50%) translateY(${ty}px) scale(${scale})`;
-    }
-  }
+  const positionedClass = isHero
+    ? `bottom-[14vh] left-[6%]`
+    : align === "center"
+    ? `top-1/2 left-1/2`
+    : align === "right"
+    ? `top-1/2 right-[6%]`
+    : `top-1/2 left-[6%]`;
 
   return (
     <div
@@ -2910,26 +3012,15 @@ function Overlay({ show, align, children }: { show: number; align: "left" | "rig
       style={{
         opacity: show,
         transform: finalTransform,
+        transitionDelay: show ? `${entranceDelay}ms` : "0ms",
         transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
-        maxHeight: isMobile ? "calc(100dvh - 140px)" : "calc(100vh - 180px)",
-        maxWidth: isMobile ? "100%" : "min(1180px, 92vw)",
+        maxHeight: "calc(100vh - 180px)",
+        maxWidth: "min(1180px, 92vw)",
         pointerEvents: "none",
         willChange: "transform, opacity",
-        overflow: "hidden",
       }}
     >
-      <div
-        className="w-full flex flex-col"
-        style={{
-          maxHeight: isMobile ? "calc(100dvh - 160px)" : "calc(100vh - 200px)",
-          overflowY: isMobile ? "auto" : "visible",
-          scrollbarWidth: "none",
-          msOverflowStyle: "none",
-          WebkitOverflowScrolling: "touch",
-        }}
-      >
-        {children}
-      </div>
+      {children}
     </div>
   );
 }
@@ -2942,7 +3033,7 @@ const NAV = [
   { label: "About", target: 0.17 },
   { label: "Services", target: 0.4 },
   { label: "Work", target: 0.68 },
-  { label: "Social", target: 0.85 },
+  { label: "Social", target: 0.92 },
   { label: "Contact", target: 0.95 },
 ];
 
@@ -3073,7 +3164,7 @@ function LoadingScreen({ onComplete }: { onComplete: () => void }) {
   useEffect(() => {
     const t = setTimeout(() => {
       minTimeElapsed.current = true;
-    }, 4500);
+    }, 2400);
     return () => clearTimeout(t);
   }, []);
 
@@ -3099,7 +3190,7 @@ function LoadingScreen({ onComplete }: { onComplete: () => void }) {
     const check = setInterval(() => {
       if (progressDone.current && minTimeElapsed.current && !hidden) {
         setHidden(true);
-        setTimeout(onComplete, 700);
+        setTimeout(onComplete, 200);
         clearInterval(check);
       }
     }, 200);
@@ -3123,7 +3214,7 @@ function LoadingScreen({ onComplete }: { onComplete: () => void }) {
         <motion.div
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
           className="fixed inset-0 z-[500] overflow-hidden"
           style={{
             background: "#04050c",
@@ -3142,13 +3233,12 @@ function LoadingScreen({ onComplete }: { onComplete: () => void }) {
 
           <video
             ref={videoRef}
-            src="https://raw.githubusercontent.com/AdhamAjlan/DM-Vibes/main/public/videos/intro.webm"
-            poster="/images/studio-bg.webp"
+            src="/videos/intro.mp4"
             playsInline
             muted
             autoPlay
             loop
-            preload="metadata"
+            preload="auto"
             className="pointer-events-none"
             style={{
               position: "absolute",
@@ -3156,7 +3246,7 @@ function LoadingScreen({ onComplete }: { onComplete: () => void }) {
               left: 0,
               width: "100%",
               height: "100%",
-              objectFit: "cover",
+              objectFit: "contain",
               objectPosition: "center",
               opacity: videoReady ? 1 : 0,
               transition: "opacity 0.7s ease",
@@ -3172,15 +3262,15 @@ function LoadingScreen({ onComplete }: { onComplete: () => void }) {
             }}
           />
 
-          <div className="absolute top-6 left-5 sm:top-8 sm:left-8 flex items-center gap-2 z-10">
+          <div className="absolute top-8 left-8 flex items-center gap-2 z-10">
             <div className="w-2 h-2 rounded-full bg-[#f43f5e] shadow-[0_0_12px_#f43f5e] animate-[pulseDot_1.4s_ease-in-out_infinite]" />
-            <span className="text-[#f43f5e] text-[9px] sm:text-[10px] font-bold tracking-[4px]">REC</span>
+            <span className="text-[#f43f5e] text-[10px] font-bold tracking-[4px]">REC</span>
           </div>
 
-          <div className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-3 sm:gap-5 px-4 w-full max-w-[90vw]">
+          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-5">
             <div className="flex items-center gap-3">
               <div className="w-2 h-2 bg-amber shadow-[0_0_18px_#4f7bff] animate-[pulseDot_1.4s_ease-in-out_infinite]" />
-              <h1 className="text-white text-lg sm:text-xl md:text-3xl font-black tracking-[6px] sm:tracking-[10px]">DM VIBES</h1>
+              <h1 className="text-white text-xl md:text-3xl font-black tracking-[10px]">DM VIBES</h1>
             </div>
 
             <div className="flex items-center gap-3">
@@ -3197,7 +3287,7 @@ function LoadingScreen({ onComplete }: { onComplete: () => void }) {
               <div className="w-8 h-[1px] bg-amber/50" />
             </div>
 
-            <div className="w-[180px] sm:w-[220px] md:w-[280px] h-[3px] bg-white/10 relative overflow-hidden rounded-full">
+            <div className="w-[280px] h-[3px] bg-white/10 relative overflow-hidden rounded-full">
               <div
                 className="absolute inset-y-0 left-0 transition-all duration-200"
                 style={{
@@ -3215,10 +3305,10 @@ function LoadingScreen({ onComplete }: { onComplete: () => void }) {
             </div>
           </div>
 
-          <div className="absolute bottom-8 left-8 text-[9px] tracking-[3px] text-white/40 font-bold z-10 hidden sm:block">
+          <div className="absolute bottom-8 left-8 text-[9px] tracking-[3px] text-white/40 font-bold z-10">
             DMV · CREATIVE STUDIO
           </div>
-          <div className="absolute bottom-8 right-8 text-[9px] tracking-[3px] text-white/40 font-bold z-10 hidden sm:block">
+          <div className="absolute bottom-8 right-8 text-[9px] tracking-[3px] text-white/40 font-bold z-10">
             CAIRO · EGYPT
           </div>
 
@@ -3361,7 +3451,7 @@ function ProjectApplicationModal({ open, onClose }: { open: boolean; onClose: ()
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[400] flex items-center justify-center bg-[#050507]/80 backdrop-blur-md px-3 sm:px-4 py-6"
+          className="fixed inset-0 z-[400] flex items-center justify-center bg-[#050507]/80 backdrop-blur-md px-4"
           onClick={onClose}
         >
           <motion.div
@@ -3369,13 +3459,13 @@ function ProjectApplicationModal({ open, onClose }: { open: boolean; onClose: ()
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.98 }}
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full max-w-2xl max-h-[90dvh] overflow-y-auto rounded-2xl sm:rounded-[28px] border border-white/10 bg-[#0a0d17]/90 p-4 sm:p-5 shadow-[0_0_40px_rgba(79,123,255,0.24)]"
+            className="relative w-full max-w-2xl rounded-[28px] border border-white/10 bg-[#0a0d17]/90 p-5 shadow-[0_0_40px_rgba(79,123,255,0.24)]"
             onClick={(event) => event.stopPropagation()}
           >
             <button
               type="button"
               onClick={onClose}
-              className="absolute right-3 sm:right-4 top-3 sm:top-4 flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-lg text-white/70 transition hover:border-white/20 hover:text-white"
+              className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-lg text-white/70 transition hover:border-white/20 hover:text-white"
               aria-label="Close form"
             >
               ×
@@ -3400,12 +3490,12 @@ function ProjectApplicationModal({ open, onClose }: { open: boolean; onClose: ()
               </div>
             ) : (
               <>
-                <div className="mb-6 pr-10">
+                <div className="mb-6">
                   <div className="mb-3 flex items-center gap-3">
                     <div className="h-px w-10 bg-[#ffc857]" />
                     <span className="text-[10px] font-bold tracking-[5px] text-[#ffc857]">PROJECT APPLICATION</span>
                   </div>
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-white">Start your next project</h3>
+                  <h3 className="text-3xl font-black tracking-tight text-white md:text-4xl">Start your next project</h3>
                 </div>
 
                 <form onSubmit={handleSubmit} className="grid gap-4 md:grid-cols-2">
@@ -3415,7 +3505,7 @@ function ProjectApplicationModal({ open, onClose }: { open: boolean; onClose: ()
                       required
                       type="text"
                       placeholder="Your name"
-                      className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-base sm:text-sm text-white placeholder:text-white/35 focus:border-[#4f7bff] focus:outline-none"
+                      className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/35 focus:border-[#4f7bff] focus:outline-none"
                     />
                   </label>
 
@@ -3425,7 +3515,7 @@ function ProjectApplicationModal({ open, onClose }: { open: boolean; onClose: ()
                       required
                       type="email"
                       placeholder="you@example.com"
-                      className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-base sm:text-sm text-white placeholder:text-white/35 focus:border-[#4f7bff] focus:outline-none"
+                      className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/35 focus:border-[#4f7bff] focus:outline-none"
                     />
                   </label>
 
@@ -3434,7 +3524,7 @@ function ProjectApplicationModal({ open, onClose }: { open: boolean; onClose: ()
                     <input
                       type="text"
                       placeholder="Brand name"
-                      className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-base sm:text-sm text-white placeholder:text-white/35 focus:border-[#4f7bff] focus:outline-none"
+                      className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/35 focus:border-[#4f7bff] focus:outline-none"
                     />
                   </label>
 
@@ -3442,7 +3532,7 @@ function ProjectApplicationModal({ open, onClose }: { open: boolean; onClose: ()
                     Service needed
                     <select
                       defaultValue={PROJECT_SERVICES[0]}
-                      className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-base sm:text-sm text-white focus:border-[#4f7bff] focus:outline-none"
+                      className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white focus:border-[#4f7bff] focus:outline-none"
                     >
                       {PROJECT_SERVICES.map((service) => (
                         <option key={service} value={service} className="text-slate-900">
@@ -3457,7 +3547,7 @@ function ProjectApplicationModal({ open, onClose }: { open: boolean; onClose: ()
                     <input
                       type="text"
                       placeholder="$1,000 – $5,000"
-                      className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-base sm:text-sm text-white placeholder:text-white/35 focus:border-[#4f7bff] focus:outline-none"
+                      className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/35 focus:border-[#4f7bff] focus:outline-none"
                     />
                   </label>
 
@@ -3466,7 +3556,7 @@ function ProjectApplicationModal({ open, onClose }: { open: boolean; onClose: ()
                     <input
                       type="text"
                       placeholder="Example: 3 weeks"
-                      className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-base sm:text-sm text-white placeholder:text-white/35 focus:border-[#4f7bff] focus:outline-none"
+                      className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/35 focus:border-[#4f7bff] focus:outline-none"
                     />
                   </label>
 
@@ -3476,14 +3566,22 @@ function ProjectApplicationModal({ open, onClose }: { open: boolean; onClose: ()
                       required
                       rows={5}
                       placeholder="Tell us about your vision, goals, and key deliverables..."
-                      className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-base sm:text-sm text-white placeholder:text-white/35 focus:border-[#4f7bff] focus:outline-none"
+                      className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/35 focus:border-[#4f7bff] focus:outline-none"
                     />
                   </label>
 
                   <div className="md:col-span-2 flex flex-col gap-3 pt-2 sm:flex-row sm:items-center sm:justify-between">
-                    <p className="text-[10px] tracking-[2px] text-white/40">
-                      We usually reply within 24 hours.
-                    </p>
+                    <div className="flex flex-col gap-1">
+                      <p className="text-[10px] tracking-[2px] text-white/40">
+                        We usually reply within 24 hours.
+                      </p>
+                      <p className="text-[10px] tracking-[2px] text-white/30">
+                        Or reach us directly at{" "}
+                        <a href={`mailto:${CONTACT_INFO.email}`} className="text-amber hover:underline">{CONTACT_INFO.email}</a>
+                        {" · "}
+                        <a href={`tel:${CONTACT_INFO.phone}`} className="text-amber hover:underline">{CONTACT_INFO.phone}</a>
+                      </p>
+                    </div>
                     <div className="flex gap-3">
                       <button
                         type="button"

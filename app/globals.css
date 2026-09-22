@@ -23,17 +23,12 @@ html, body {
   color: #fff;
   font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
   overflow-x: hidden;
-  width: 100%;
-  max-width: 100vw;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
 body {
   min-height: 100vh;
-  min-height: 100svh;
-  padding-top: env(safe-area-inset-top, 0px);
-  padding-bottom: env(safe-area-inset-bottom, 0px);
   cursor: none;
   background:
     radial-gradient(circle at top, rgba(79, 123, 255, 0.12), transparent 36%),
@@ -41,43 +36,87 @@ body {
     var(--page-bg);
 }
 
+@media (max-width: 768px) { body { cursor: auto; } }
+
 @media (max-width: 768px) {
-  body {
-    cursor: auto;
-    background:
-      radial-gradient(circle at top, rgba(79, 123, 255, 0.12), transparent 36%),
-      radial-gradient(circle at bottom, rgba(139, 92, 246, 0.12), transparent 35%),
-      var(--page-bg);
+  .client-logo-card {
+    height: 48px;
+    padding: 4px;
   }
 
-  html, body {
-    max-width: 100vw;
-    overflow-x: clip;
+  .client-logo-card img {
+    width: 108%;
+    max-width: none;
+    max-height: 34px;
   }
 
-  main {
-    width: 100%;
-    max-width: 100vw;
-    overflow-x: hidden;
-  }
-
-  button,
-  a,
-  input,
-  textarea,
-  select {
-    -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
-  }
-
-  .noise::after {
-    opacity: 0.03;
+  .client-logo-panel {
+    padding: 3px !important;
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .noise::after {
-    animation: none;
+.client-logo-panel {
+  perspective: 1200px;
+}
+
+.client-logo-card {
+  isolation: isolate;
+  transform: perspective(900px) rotateX(1deg) translateZ(0);
+  transform-style: preserve-3d;
+  will-change: transform, box-shadow;
+}
+
+.client-logo-card::before,
+.client-logo-card::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border-radius: 14px;
+  pointer-events: none;
+  transform: translateZ(-8px);
+}
+
+.client-logo-card::before {
+  background: linear-gradient(135deg, rgba(232,241,255,0.96), rgba(164,194,255,0.78));
+  box-shadow: 0 8px 0 rgba(66,100,170,0.58);
+  z-index: -2;
+}
+
+.client-logo-card::after {
+  inset: 0;
+  border: 1px solid rgba(217,230,255,0.95);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), inset 0 -8px 18px rgba(54,91,165,0.18);
+  transform: translateZ(2px);
+  z-index: 1;
+}
+
+.client-logo-card:hover {
+  transform: perspective(900px) rotateX(4deg) rotateY(-3deg) translateY(-6px) translateZ(10px);
+}
+
+.client-logo-art {
+  position: relative;
+  z-index: 2;
+  transform: translateZ(18px) scale(1.08);
+  filter: drop-shadow(0 5px 3px rgba(15, 29, 58, 0.26));
+}
+
+.client-logo-depth {
+  transform: translateZ(6px);
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .client-logo-card {
+    transform: none;
+  }
+
+  .client-logo-card:hover {
+    transform: translateY(-3px);
+  }
+
+  .client-logo-art {
+    transform: translateZ(8px) scale(1.04);
   }
 }
 
