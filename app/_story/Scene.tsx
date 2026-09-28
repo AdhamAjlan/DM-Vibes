@@ -45,6 +45,10 @@ function fitModel(source: THREE.Object3D, o: Fit) {
     const m = c as THREE.Mesh;
     if (!m.isMesh) return;
     if (o.exclude?.(m)) drop.push(m);
+    // let every model pick up the studio's reflections so it reads out of the dark
+    (Array.isArray(m.material) ? m.material : [m.material]).forEach((mat) => {
+      if (mat && "envMapIntensity" in mat) (mat as THREE.MeshStandardMaterial).envMapIntensity = 1.8;
+    });
     m.castShadow = !!o.shadows;
     m.receiveShadow = !!o.shadows;
   });
@@ -883,13 +887,17 @@ function PhoneSet({ s, q }: Props) {
   const screenGeo = useMemo(() => roundedPlane(dims.x * 0.9, dims.y * 0.95, dims.x * 0.11), [dims]);
   const screenMat = useRef<THREE.MeshBasicMaterial>(null);
   const root = useRef<THREE.Group>(null);
+  const front = useRef<THREE.PointLight>(null);
+  const rim = useRef<THREE.PointLight>(null);
   const glow = useMemo(() => new THREE.MeshBasicMaterial({ color: VIOLET, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false }), []);
 
   useFrame((state) => {
     const t = state.clock.elapsedTime;
     screen.draw(s.phone.feed);
-    screenMat.current?.color.setScalar(0.03 + s.phone.on * 0.97);
-    glow.opacity = s.phone.on * 0.35;
+    screenMat.current?.color.setScalar(0.15 + s.phone.on * 1.1);
+    glow.opacity = s.phone.on * 0.45;
+    if (front.current) front.current.intensity = (0.4 + s.phone.on) * 7;
+    if (rim.current) rim.current.intensity = (0.3 + s.phone.on) * 10;
     if (root.current) {
       root.current.position.set(PHONE[0], PHONE[1] + Math.sin(t * 0.7) * 0.03, PHONE[2]);
       root.current.rotation.set(-0.12, -0.55 + s.phone.spin * 0.5, 0.32 - s.phone.spin * 0.12);
@@ -904,6 +912,8 @@ function PhoneSet({ s, q }: Props) {
           <meshBasicMaterial ref={screenMat} map={screen.texture} toneMapped={false} />
         </mesh>
       </group>
+      <pointLight ref={front} position={[PHONE[0] - 0.9, PHONE[1] + 0.5, PHONE[2] + 1.5]} color="#e2dcff" distance={5} decay={2} intensity={0} />
+      <pointLight ref={rim} position={[PHONE[0] + 0.8, PHONE[1] + 0.9, PHONE[2] - 0.9]} color="#8a5cff" distance={4} decay={2} intensity={0} />
       <mesh rotation-x={-Math.PI / 2} position={[PHONE[0], 0.015, PHONE[2]]} material={glow}>
         <circleGeometry args={[1.1, 48]} />
       </mesh>
@@ -958,7 +968,12 @@ function Plant({ position, scale = 1 }: { position: V3; scale?: number }) {
 
 function Lounge({ s, q }: Props) {
   const lamp = useMemo(() => new THREE.MeshBasicMaterial({ color: WARM, toneMapped: false }), []);
-  useFrame(() => lamp.color.set(WARM).multiplyScalar(0.2 + s.lounge.on * 2.6));
+  const sign = useRef<THREE.Group>(null);
+  useFrame(({ camera }) => {
+    lamp.color.set(WARM).multiplyScalar(0.2 + s.lounge.on * 2.6);
+    // the wall sign is the lounge's reveal — keep it from peeking down the hall behind earlier copy
+    if (sign.current) sign.current.visible = camera.position.z < -29;
+  });
   const L = LOUNGE;
   const fabric = <meshStandardMaterial color="#1a1a26" roughness={0.95} />;
   return (
@@ -1001,7 +1016,9 @@ function Lounge({ s, q }: Props) {
         <boxGeometry args={[7, 4.4, 0.1]} />
         <meshStandardMaterial color="#0b0b12" roughness={0.9} />
       </mesh>
-      <Logo s={s} q={q} position={[L[0], 2.35, -44.45]} size={0.42} sub={false} />
+      <group ref={sign}>
+        <Logo s={s} q={q} position={[L[0], 2.35, -44.45]} size={0.42} sub={false} />
+      </group>
       <pointLight position={[L[0], 2.6, -43.4]} color="#e6e8ff" intensity={2.5} distance={3} decay={2} />
       <Tube position={[L[0] - 3.1, 1.3, -44.3]} color={VIOLET} height={2.4} strength={3.4} />
       <Tube position={[L[0] + 3.1, 1.3, -44.3]} color={VIOLET} height={2.4} strength={3.4} />
@@ -1042,6 +1059,9 @@ function Dust({ s, count }: { s: StoryState; count: number }) {
 // ═══════════════════════════════════════════════════════════
 function Lights({ s, q }: Props) {
   const hemi = useRef<THREE.HemisphereLight>(null);
+  const head = useRef<THREE.PointLight>(null);
+  const headOffset = useMemo(() => new THREE.Vector3(0, 0.35, 0), []);
+  const camera = useThree((st) => st.camera);
   const key = useRef<THREE.SpotLight>(null);
   const fill = useRef<THREE.PointLight>(null);
   const target = useMemo(() => new THREE.Object3D(), []);
@@ -1062,23 +1082,29 @@ function Lights({ s, q }: Props) {
     if (key.current) {
       key.current.position.set(k.x, k.y, k.z);
       key.current.color.setRGB(k.r, k.g, k.b, THREE.SRGBColorSpace);
-      key.current.intensity = k.i * 95 * (0.25 + 0.75 * s.intro);
+      key.current.intensity = k.i * 150 * (0.25 + 0.75 * s.intro);
     }
     target.position.set(k.tx, k.ty, k.tz);
     const f = s.fill;
     if (fill.current) {
       fill.current.position.set(f.x, f.y, f.z);
       fill.current.color.setRGB(f.r, f.g, f.b, THREE.SRGBColorSpace);
-      fill.current.intensity = f.i * 14 * s.intro;
+      fill.current.intensity = f.i * 28 * s.intro;
     }
-    if (hemi.current) hemi.current.intensity = 0.5 * s.intro;
+    if (hemi.current) hemi.current.intensity = 1.1 * s.intro;
+    // a soft light riding just above the camera: whatever is in front of us stays readable
+    if (head.current) {
+      head.current.position.copy(camera.position).add(headOffset);
+      head.current.intensity = 7 * s.intro;
+    }
     practicals.current.forEach((l, i) => l && (l.intensity = spots[i].i * spots[i].on() * s.intro));
   });
 
   return (
     <>
       <primitive object={target} />
-      <hemisphereLight ref={hemi} args={["#5a64b8", "#07070c", 0]} />
+      <hemisphereLight ref={hemi} args={["#8a93e0", "#141222", 0]} />
+      <pointLight ref={head} color="#d4dbff" distance={7} decay={1.6} intensity={0} />
       <spotLight
         ref={key}
         target={target}

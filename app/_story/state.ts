@@ -32,7 +32,7 @@ export function createStoryState() {
     // the roaming key light travels with the story from set to set
     key: { x: 0, y: 5.5, z: 13.5, tx: 0, ty: 1.5, tz: 7, i: 1.4, ...rgb("#dfe5ff") },
     fill: { x: -3, y: 2.5, z: 10, i: 0.8, ...rgb("#6f5bff") },
-    env: { bg: rgb("#030309"), density: 0.03, envi: 0.9, exposure: 1.15 },
+    env: { bg: rgb("#030309"), density: 0.03, envi: 1.1, exposure: 1.3 },
     fx: { bloom: 0.7 },
   };
 }

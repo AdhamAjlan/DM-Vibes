@@ -418,8 +418,8 @@ export function createSocialScreen() {
     const g = grid.ctx;
     const hue = hues[i % hues.length] + rnd() * 20;
     const bg = g.createLinearGradient(x, y, x + tile, y + tile);
-    bg.addColorStop(0, `hsl(${hue} 60% ${14 + rnd() * 10}%)`);
-    bg.addColorStop(1, `hsl(${hue + 40} 70% ${6 + rnd() * 8}%)`);
+    bg.addColorStop(0, `hsl(${hue} 70% ${34 + rnd() * 14}%)`);
+    bg.addColorStop(1, `hsl(${hue + 40} 75% ${16 + rnd() * 10}%)`);
     g.fillStyle = bg;
     g.fillRect(x, y, tile, tile);
     const kind = i % 4;
@@ -472,12 +472,12 @@ export function createSocialScreen() {
     if (key === last) return;
     last = key;
     const sans = SANS();
-    ctx.fillStyle = "#04040a";
+    ctx.fillStyle = "#0c0b18";
     ctx.fillRect(0, 0, W, H);
     const top = 330;
     ctx.drawImage(grid.c, 4, top - feed * (grid.c.height - (H - top - 110)));
     // profile header (fixed)
-    ctx.fillStyle = "#04040a";
+    ctx.fillStyle = "#0c0b18";
     ctx.fillRect(0, 0, W, top - 6);
     ctx.fillStyle = "#fff";
     ctx.font = `600 24px ${sans}`;

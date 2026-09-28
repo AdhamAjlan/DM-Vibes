@@ -68,17 +68,17 @@ export function buildStoryTimeline(s: StoryState, root: HTMLElement, { mobile }:
 
   // ─── 01 · LOGO ──────────────────────────────────────────
   tl.to(s.logo, { glow: 0.35, duration: 6 }, 10);
-  tl.to(s.env, { envi: 0.5, duration: 6 }, 10);
+  tl.to(s.env, { envi: 0.85, duration: 6 }, 10);
   tl.to($("[data-intro-cue]"), { autoAlpha: 0, duration: 2 }, 1);
 
   // ─── 02–05 · CAMERA, LENS, PASS THROUGH ────────────────
   tl.to(s.hero, { practicals: 1, duration: 5 }, 10);
   tl.to(s.hero, { lens: 1, duration: 5 }, 22);
   tl.to(s.fx, { bloom: 1.05, duration: 5 }, 25);
-  tl.to(s.env, { exposure: 1.25, duration: 5 }, 26);
+  tl.to(s.env, { exposure: 1.4, duration: 5 }, 26);
   tl.to(s.hero, { lens: 0.25, practicals: 0.4, duration: 4 }, 35);
   tl.to(s.fx, { bloom: 0.75, duration: 4 }, 35);
-  tl.to(s.env, { exposure: 1.15, duration: 4 }, 35);
+  tl.to(s.env, { exposure: 1.3, duration: 4 }, 35);
 
   // ─── 06 · MEDIA PRODUCTION ──────────────────────────────
   tl.to(s.media, { on: 1, duration: 4, ease: "power3.out" }, 37);
